@@ -1,0 +1,19 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/blog"
+public_folder: "/images/blog"
+
+collections:
+  - name: "blog"
+    label: "المدونة القانونية"
+    folder: "blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "العنوان", name: "title", widget: "string" }
+      - { label: "تاريخ النشر", name: "date", widget: "datetime" }
+      - { label: "صورة بارزة (اختياري)", name: "image", widget: "image", required: false }
+      - { label: "وصف قصير", name: "description", widget: "text" }
+      - { label: "المحتوى الكامل", name: "body", widget: "markdown" }
