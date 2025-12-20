@@ -1,7 +1,11 @@
 backend:
   name: github
-  branch: main
   repo: malegal/ma-legal
+  branch: main
+  # base_url must point to your OAuth proxy that performs the GitHub OAuth exchange.
+  # Deploy a GitHub OAuth proxy (e.g. njfamirm/decap-cms-github-backend or saroj-shr/decap-cms-oauth)
+  # and replace the placeholder below with its URL (no trailing slash).
+  base_url: "https://<YOUR_OAUTH_BACKEND_URL>"
 
 media_folder: "images/blog"
 public_folder: "/images/blog"
