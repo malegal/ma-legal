@@ -1,7 +1,11 @@
 backend:
   name: git-gateway
   branch: main
+  repo: malegal/ma-legal  # تأكد من اسم المستودع
 
+# إعدادات Netlify Identity
+local_backend: false
+publish_mode: editorial_workflow
 media_folder: "images/blog"
 public_folder: "/images/blog"
 
@@ -13,7 +17,7 @@ collections:
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - { label: "العنوان", name: "title", widget: "string" }
-      - { label: "تاريخ النشر", name: "date", widget: "datetime" }
+      - { label: "تاريخ النشر", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
       - { label: "صورة بارزة (اختياري)", name: "image", widget: "image", required: false }
       - { label: "وصف قصير", name: "description", widget: "text" }
       - { label: "المحتوى الكامل", name: "body", widget: "markdown" }
