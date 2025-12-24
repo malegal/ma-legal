@@ -75,26 +75,30 @@
         </div>
     </div>
 
-    <section id="hero" class="min-h-screen flex flex-col items-center justify-center text-center px-6 pt-20 relative overflow-hidden bg-cover bg-center bg-no-repeat"
+    <section id="hero" <section id="hero" 
+         class="min-h-screen flex flex-col items-center justify-center text-center px-6 pt-20 relative overflow-hidden bg-cover bg-center bg-no-repeat"
          style="background-image: url('https://raw.githubusercontent.com/malegal/ma-legal/main/images/law-office-hero.jpg');">
-    <!-- overlay داكن لتحسين القراءة -->
-    <div class="absolute inset-0 bg-black/60"></div>
     
-    <div class="relative z-10">
-        <span class="block gold-text text-xs font-black tracking-[0.5em] mb-8 uppercase">Professional Legal Counsel</span>
-        <h1 class="mb-8"><span class="block text-5xl sm:text-7xl md:text-8xl font-black serif-font gold-text">محمود عبد الحميد</span></h1>
-        <p class="gold-text tracking-[0.3em] font-bold text-xl md:text-2xl uppercase mb-8">المحامي بالنقض والدستورية العليا</p>
-        <span class="experience-badge mb-12">خبرة أكثر من ٢٠ عاماً في المحاماة</span>
+    <!-- طبقة شفافة داكنة أخف -->
+    <div class="absolute inset-0 bg-black/40"></div>
+    
+    <!-- النصوص فوق الخلفية -->
+    <div class="relative z-10 max-w-4xl mx-auto">
+        <span class="block gold-text text-xs font-black tracking-[0.5em] mb-8 uppercase">
+            Professional Legal Counsel
+        </span>
         
-        <div class="flex flex-col gap-4 mt-16 mb-12 text-white">
-            <p class="flex items-center justify-center gap-3 text-lg md:text-xl font-bold">
-                <i class="fas fa-phone gold-text"></i>
-                <i class="fab fa-whatsapp gold-text"></i>
-                <a href="https://wa.me/201101076000" target="_blank" class="hover:gold-text transition tracking-widest">01101076000</a>
-            </p>
-            <p class="flex items-center justify-center gap-3 text-base md:text-lg opacity-80"><i class="fas fa-envelope gold-text"></i>ma.legal.eg@outlook.com</p>
-            <p class="flex items-center justify-center gap-3 text-base md:text-lg opacity-80"><i class="fas fa-map-marker-alt gold-text"></i>أسوان - أمام مجمع المحاكم</p>
-        </div>
+        <h1 class="mb-8">
+            <span class="block text-5xl sm:text-7xl md:text-8xl font-black serif-font gold-text">
+                محمود عبد الحميد
+            </span>
+        </h1>
+        
+        <p class="text-lg sm:text-xl md:text-2xl text-white/90 leading-relaxed max-w-2xl mx-auto">
+            المحامي بالنقض والدستورية العليا – خبرة قانونية راسخة ورؤية حديثة لخدمة الأفراد والشركات.
+        </p>
+    </div>
+</section>
         
         <div class="flex flex-col sm:flex-row gap-5 justify-center items-center">
             <a href="#booking" class="gold-btn px-12 py-4 rounded-xl text-lg font-black uppercase tracking-widest">طلب استشارة قانونية</a>
