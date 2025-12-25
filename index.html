@@ -17,8 +17,6 @@
             --gold-solid: #bf953f;
             --gold-glow: rgba(191, 149, 63, 0.5);
             --header-height: 90px;
-            --whatsapp-green: #25D366;
-            --email-blue: #0072C6;
         }
         
         * {
@@ -59,40 +57,10 @@
             box-shadow: 0 0 30px var(--gold-glow); 
         }
         
-        .whatsapp-btn { 
-            background: var(--whatsapp-green); 
-            color: white; 
-            font-weight: 800; 
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .whatsapp-btn:hover { 
-            background: #128C7E; 
-            transform: translateY(-2px); 
-            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3); 
-        }
-        
-        .email-btn { 
-            background: var(--email-blue); 
-            color: white; 
-            font-weight: 800; 
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .email-btn:hover { 
-            background: #005A9E; 
-            transform: translateY(-2px); 
-            box-shadow: 0 10px 25px rgba(0, 114, 198, 0.3); 
-        }
-        
         .card-glass { 
-            background: rgba(255, 255, 255, 0.02); 
+            background: rgba(0, 0, 0, 0.85); /* أسود شفاف */
             backdrop-filter: blur(15px); 
-            border: 1px solid rgba(191, 149, 63, 0.1); 
+            border: 1px solid rgba(191, 149, 63, 0.15); 
             border-radius: 1.5rem; 
             transition: all 0.3s ease; 
         }
@@ -100,11 +68,12 @@
         .card-glass:hover { 
             border-color: rgba(191, 149, 63, 0.4); 
             transform: translateY(-5px); 
+            box-shadow: 0 10px 30px rgba(191, 149, 63, 0.2);
         }
         
         .black-border-card { 
             border: 2px solid #000000; 
-            background: rgba(2, 6, 23, 0.9); 
+            background: rgba(0, 0, 0, 0.85); /* أسود شفاف */
             backdrop-filter: blur(10px); 
         }
         
@@ -140,6 +109,7 @@
             transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1); 
             transform: translateX(100%); 
             overflow-y: auto;
+            background: rgba(0, 0, 0, 0.95); /* أسود شفاف */
         }
         
         #mobile-menu.active { 
@@ -199,7 +169,7 @@
             right: 0;
             bottom: 0;
             left: 0;
-            background: rgba(2, 6, 23, 0.7);
+            background: rgba(0, 0, 0, 0.7); /* أسود شفاف */
             z-index: 1;
         }
         
@@ -219,16 +189,6 @@
             filter: brightness(1) contrast(1.2);
         }
         
-        /* لتحسين تحميل الصور */
-        .lazy-image {
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        
-        .lazy-image.loaded {
-            opacity: 1;
-        }
-        
         /* تحسينات للأجهزة المحمولة */
         @media (max-width: 768px) {
             .parallax-section {
@@ -240,67 +200,10 @@
                 font-size: 2.5rem !important;
             }
             
-            .gold-btn, .whatsapp-btn, .email-btn {
+            .gold-btn {
                 padding: 12px 20px !important;
                 font-size: 14px !important;
             }
-        }
-        
-        /* أنيميشن للخلفيات */
-        @keyframes subtleZoom {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        .animated-bg {
-            animation: subtleZoom 30s ease-in-out infinite;
-        }
-        
-        /* تحسينات للنظام الهجين */
-        .booking-method-card {
-            transition: all 0.4s ease;
-            border: 2px solid transparent;
-        }
-        
-        .booking-method-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--gold-solid);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-        
-        .method-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            display: inline-block;
-        }
-        
-        .step-indicator {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(191, 149, 63, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: var(--gold-solid);
-            margin-left: 10px;
-        }
-        
-        .progress-bar {
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 2px;
-            overflow: hidden;
-            margin: 20px 0;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: var(--gold-gradient);
-            width: 0%;
-            transition: width 0.5s ease;
         }
         
         /* تأثيرات دخول للمحتوى */
@@ -318,11 +221,12 @@
         /* تحسينات للنماذج */
         input, textarea, select {
             font-family: 'Tajawal', sans-serif;
+            background: rgba(255, 255, 255, 0.05);
         }
         
         input:focus, textarea:focus, select:focus {
             outline: none;
-            ring: 2px solid var(--gold-solid);
+            border-color: var(--gold-solid);
         }
         
         /* تحسينات عامة للشريط */
@@ -342,6 +246,37 @@
         ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(135deg, #aa771c 0%, #bf953f 100%);
         }
+        
+        /* إطار ذهبي للكروت */
+        .gold-border {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gold-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid transparent;
+            border-radius: 1.5rem;
+            background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728) border-box;
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) padding-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        
+        /* تحسين الهيدر */
+        .header-glass {
+            background: rgba(0, 0, 0, 0.9) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(191, 149, 63, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -352,7 +287,7 @@
     </a>
 
     <!-- الهيدر -->
-    <header class="fixed w-full z-[100] bg-[#020617]/95 backdrop-blur-md border-b border-white/5">
+    <header class="fixed w-full z-[100] header-glass">
         <nav class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center gap-4">
                 <img src="logo.png" alt="شعار مؤسسة محمود عبد الحميد" class="w-28 h-28 object-contain">
@@ -375,7 +310,7 @@
     </header>
 
     <!-- القائمة المتنقلة -->
-    <div id="mobile-menu" class="fixed inset-0 z-[110] bg-[#020617] p-10 lg:hidden">
+    <div id="mobile-menu" class="fixed inset-0 z-[110] p-10 lg:hidden">
         <button id="menu-close" class="absolute top-6 left-6 text-3xl gold-text">
             <i class="fas fa-times"></i>
         </button>
@@ -442,12 +377,13 @@
         </div>
     </section>
 
-    <!-- قسم عن المؤسسة -->
-    <section id="about" class="py-24 relative parallax-section"
-         style="background-image: url('images/about-bg.jpg');">
-        <div class="parallax-overlay bg-black/70"></div>
+    <!-- قسم عن المؤسسة - مع خلفية قابلة للتعديل -->
+    <section id="about" class="py-24 relative"
+         style="background-image: url('images/about-bg.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
+        <!-- طبقة داكنة شفافة -->
+        <div class="absolute inset-0 bg-black/70"></div>
         
-        <div class="parallax-content max-w-7xl mx-auto px-6">
+        <div class="relative z-10 max-w-7xl mx-auto px-6">
             <div class="rounded-3xl overflow-hidden shadow-2xl shadow-gold-glow/40 mb-16">
                 <img src="https://raw.githubusercontent.com/malegal/ma-legal/main/images/law-office-hero.jpg"
                      class="w-full h-[320px] sm:h-[380px] md:h-[450px] lg:h-[500px] object-cover enhanced-image"
@@ -492,7 +428,7 @@
 
     <!-- قسم التخصصات -->
     <section id="specialties" class="py-24 relative parallax-section"
-         style="background-image: url('https://raw.githubusercontent.com/malegal/ma-legal/main/images/library2.jpg');">
+         style="background-image: url('https://raw.githubusercontent.com/malegal/ma-legal/main/images/مطرقة.jpg');">
         <div class="parallax-overlay bg-black/75"></div>
         
         <div class="parallax-content max-w-7xl mx-auto px-6">
@@ -502,31 +438,31 @@
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="black-border-card card-glass p-8 group rounded-2xl fade-in-up">
+                <div class="black-border-card card-glass p-8 group rounded-2xl fade-in-up gold-border">
                     <i class="fas fa-balance-scale text-4xl gold-text mb-6"></i>
                     <h3 class="text-2xl font-bold gold-text mb-4">القانون المدني و التعويضات</h3>
                 </div>
-                <div class="black-border-card card-glass p-8 group rounded-2xl fade-in-up">
+                <div class="black-border-card card-glass p-8 group rounded-2xl fade-in-up gold-border">
                     <i class="fas fa-city text-4xl gold-text mb-6"></i>
                     <h3 class="text-2xl font-bold gold-text mb-4">المنازعات العقارية</h3>
                 </div>
-                <div class="black-border-card card-glass p-8 group rounded-2xl fade-in-up">
+                <div class="black-border-card card-glass p-8 group rounded-2xl fade-in-up gold-border">
                     <i class="fas fa-building text-4xl gold-text mb-6"></i>
                     <h3 class="text-2xl font-bold gold-text mb-4">تسجيل الملكية في الشهر العقاري</h3>
                 </div>
-                <div class="black-border-card card-glass p-8 group rounded-2xl fade-in-up">
+                <div class="black-border-card card-glass p-8 group rounded-2xl fade-in-up gold-border">
                     <i class="fas fa-copyright text-4xl gold-text mb-6"></i>
                     <h3 class="text-2xl font-bold gold-text mb-4">قضايا الملكية الفكرية و حماية العلامات التجارية</h3>
                 </div>
-                <div class="black-border-card card-glass p-8 group rounded-2xl fade-in-up">
+                <div class="black-border-card card-glass p-8 group rounded-2xl fade-in-up gold-border">
                     <i class="fas fa-briefcase text-4xl gold-text mb-6"></i>
                     <h3 class="text-2xl font-bold gold-text mb-4">القانون التجاري و منازعات الشركات</h3>
                 </div>
-                <div class="black-border-card card-glass p-8 group rounded-2xl fade-in-up">
+                <div class="black-border-card card-glass p-8 group rounded-2xl fade-in-up gold-border">
                     <i class="fas fa-building text-4xl gold-text mb-6"></i>
                     <h3 class="text-2xl font-bold gold-text mb-4">تاسيس الشركات و اندماجها</h3>
                 </div>
-                <div class="black-border-card card-glass p-8 group rounded-2xl fade-in-up">
+                <div class="black-border-card card-glass p-8 group rounded-2xl fade-in-up gold-border">
                     <i class="fas fa-users-cog text-4xl gold-text mb-6"></i>
                     <h3 class="text-2xl font-bold gold-text mb-4">القضايا العمالية</h3>
                 </div>
@@ -541,11 +477,11 @@
         
         <div class="parallax-content max-w-7xl mx-auto px-6">
             <div class="grid md:grid-cols-2 gap-12 mb-16">
-                <div class="black-border-card card-glass p-10 rounded-2xl fade-in-up">
+                <div class="black-border-card card-glass p-10 rounded-2xl fade-in-up gold-border">
                     <h3 class="text-3xl font-bold gold-text mb-6">مبادئنا</h3>
                     <p class="text-white/90 text-lg leading-relaxed">نؤمن أن المحاماة رسالة قبل أن تكون مهنة، وأن الثقة هي أساس العلاقة بين المحامي وموكله.<br>نلتزم في مؤسستنا بأعلى معايير النزاهة والاحتراف، ونتعامل مع كل قضية باعتبارها مسؤولية كاملة نتحملها بضمير قانوني حي، واستقلال في الرأي، ودقة في الأداء، دون مساومة على الحق أو تهاون في الواجب.</p>
                 </div>
-                <div class="black-border-card card-glass p-10 rounded-2xl fade-in-up">
+                <div class="black-border-card card-glass p-10 rounded-2xl fade-in-up gold-border">
                     <h3 class="text-3xl font-bold gold-text mb-6">رؤيتنا</h3>
                     <p class="text-white/90 text-lg leading-relaxed">نسعى لأن نكون مؤسسة قانونية مرجعية يُعتمد عليها في تقديم الحلول القانونية المتكاملة، وأن نرسّخ حضورًا مهنيًا قويًا يجمع بين عمق الخبرة القانونية والرؤية الحديثة لممارسة المحاماة، بما يواكب تطورات الواقع القانوني ويخدم مصالح عملائنا بكفاءة واستدامة.</p>
                 </div>
@@ -560,7 +496,7 @@
         
         <div class="parallax-content max-w-7xl mx-auto px-6">
             <div class="grid md:grid-cols-2 gap-12">
-                <div class="black-border-card card-glass p-10 rounded-2xl fade-in-up">
+                <div class="black-border-card card-glass p-10 rounded-2xl fade-in-up gold-border">
                     <h3 class="text-3xl font-bold gold-text mb-6">أهدافنا</h3>
                     <ul class="space-y-4 text-white/90 text-lg">
                         <li><i class="fas fa-check gold-text ml-2"></i> تقديم خدمات قانونية دقيقة ومبنية على دراسة متأنية لكل حالة على حدة.</li>
@@ -570,7 +506,7 @@
                         <li><i class="fas fa-check gold-text ml-2"></i> ترسيخ اسم المؤسسة كعنوان للجودة والانضباط والنتائج.</li>
                     </ul>
                 </div>
-                <div class="black-border-card card-glass p-10 rounded-2xl fade-in-up">
+                <div class="black-border-card card-glass p-10 rounded-2xl fade-in-up gold-border">
                     <h3 class="text-3xl font-bold gold-text mb-6">إنجازاتنا</h3>
                     <p class="text-white/90 text-lg leading-relaxed">على مدار مسيرتنا المهنية، حققت مؤسسة محمود عبد الحميد للمحاماة العديد من النجاحات القانونية في قضايا بالغة الأهمية، من خلال الترافع أمام مختلف درجات التقاضي، بما في ذلك محكمة النقض والمحكمة الدستورية العليا، اعتمادًا على التخصص، ودقة التحليل، وحسن إدارة الخصومة.<br><br>وخلال هذه المسيرة، مثّلنا عملاء مميزين في نزاعات ذات طبيعة معقدة، وحصلنا على أحكام قضائية أسهمت في ترسيخ مبادئ قضائية مهمة، وحصّنت المراكز القانونية لموكلينا، وانعكس أثرها إيجابًا على مصالحهم القانونية والاقتصادية.<br><br>نحن لا نقيس إنجازاتنا بالأرقام وحدها، بل بثقة موكلينا، واستمرارية التعامل معهم، والسمعة المهنية التي رسختها المؤسسة باعتبارها شريكًا قانونيًا يُعتمد عليه في القضايا الدقيقة والحساسة.</p>
                 </div>
@@ -590,7 +526,7 @@
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="black-border-card card-glass p-8 rounded-2xl text-right fade-in-up">
+                <div class="black-border-card card-glass p-8 rounded-2xl text-right fade-in-up gold-border">
                     <div class="flex items-center gap-4 mb-6">
                         <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center text-2xl font-bold gold-text">ع م</div>
                         <div>
@@ -602,7 +538,7 @@
                     <div class="mt-4 text-gold-solid">★★★★★</div>
                 </div>
 
-                <div class="black-border-card card-glass p-8 rounded-2xl text-right fade-in-up">
+                <div class="black-border-card card-glass p-8 rounded-2xl text-right fade-in-up gold-border">
                     <div class="flex items-center gap-4 mb-6">
                         <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center text-2xl font-bold gold-text">ف ا</div>
                         <div>
@@ -614,7 +550,7 @@
                     <div class="mt-4 text-gold-solid">★★★★★</div>
                 </div>
 
-                <div class="black-border-card card-glass p-8 rounded-2xl text-right fade-in-up">
+                <div class="black-border-card card-glass p-8 rounded-2xl text-right fade-in-up gold-border">
                     <div class="flex items-center gap-4 mb-6">
                         <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center text-2xl font-bold gold-text">م س</div>
                         <div>
@@ -645,160 +581,58 @@
         </div>
     </section>
 
-    <!-- قسم الحجز (النظام الهجين) -->
-    <section id="booking" class="py-24 relative parallax-section"
-         style="background-image: url('images/booking-bg.jpg');">
-        <div class="parallax-overlay bg-black/70"></div>
-        
-        <div class="parallax-content max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl font-bold gold-text text-center mb-12 section-title">حجز موعد استشارة</h2>
-            
-            <!-- شريط التقدم -->
-            <div class="max-w-2xl mx-auto mb-12">
-                <div class="progress-bar">
-                    <div id="progress-fill" class="progress-fill"></div>
-                </div>
-                <div class="flex justify-between mt-2">
-                    <span class="text-sm text-white/60">اختر الطريقة</span>
-                    <span class="text-sm text-white/60">املأ البيانات</span>
-                    <span class="text-sm text-white/60">التأكيد</span>
-                </div>
+    <!-- قسم الحجز (النظام الأصلي) -->
+    <section id="booking" class="py-12 bg-black/50">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="bg-white/5 p-2 rounded-2xl mb-12 flex">
+                <button onclick="switchTab('consult')" id="btn-consult" class="tab-btn active flex-1 py-4 rounded-xl font-bold text-white transition-all duration-300">طلب استشارة قانونية</button>
+                <button onclick="switchTab('visit')" id="btn-visit" class="tab-btn flex-1 py-4 rounded-xl font-bold text-white transition-all duration-300">حجز موعد مقابلة</button>
             </div>
-            
-            <div class="grid md:grid-cols-2 gap-8 mb-12" id="booking-methods">
-                <!-- الخيار الأساسي: واتساب -->
-                <div class="booking-method-card card-glass p-8 text-center" onclick="selectBookingMethod('whatsapp')">
-                    <div class="method-icon text-green-500">
-                        <i class="fab fa-whatsapp"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold gold-text mb-4">الحجز المباشر عبر واتساب</h3>
-                    <p class="text-white/80 mb-6">الأسرع والأكثر ضمانًا</p>
-                    <ul class="text-white/70 text-right mb-8 space-y-3">
-                        <li><i class="fas fa-check gold-text ml-2"></i> تأكيد فوري خلال دقائق</li>
-                        <li><i class="fas fa-check gold-text ml-2"></i> إرفاق المستندات مباشرة</li>
-                        <li><i class="fas fa-check gold-text ml-2"></i> دردشة مباشرة مع المكتب</li>
-                        <li><i class="fas fa-check gold-text ml-2"></i> تذكير تلقائي قبل الموعد</li>
-                    </ul>
-                    <div class="step-indicator inline-block">1</div>
-                </div>
-                
-                <!-- الخيار البديل: نموذج ويب -->
-                <div class="booking-method-card card-glass p-8 text-center" onclick="selectBookingMethod('form')">
-                    <div class="method-icon text-blue-400">
-                        <i class="fas fa-calendar-alt"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold gold-text mb-4">نموذج الحجز الإلكتروني</h3>
-                    <p class="text-white/80 mb-6">للراغبين في الحجز الرسمي</p>
-                    <ul class="text-white/70 text-right mb-8 space-y-3">
-                        <li><i class="fas fa-check gold-text ml-2"></i> تأكيد عبر البريد الإلكتروني</li>
-                        <li><i class="fas fa-check gold-text ml-2"></i> حفظ بيانات الحجز</li>
-                        <li><i class="fas fa-check gold-text ml-2"></i> إمكانية الإلغاء من الموقع</li>
-                        <li><i class="fas fa-check gold-text ml-2"></i> مناسب للشركات</li>
-                    </ul>
-                    <div class="step-indicator inline-block">2</div>
-                </div>
+
+            <!-- نموذج الاستشارة -->
+            <div id="consult-form" class="card-glass p-10 border-t-4 border-gold-solid gold-border">
+                <h3 class="text-2xl font-bold gold-text mb-6">نموذج الاستشارة السريعة</h3>
+                <form id="consultFormAction" class="space-y-6">
+                    <input type="text" id="consultName" placeholder="الاسم بالكامل" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-gold-solid text-white" required>
+                    <input type="tel" id="consultPhone" placeholder="رقم الواتساب" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-gold-solid text-white" required>
+                    <textarea id="consultMessage" placeholder="اشرح استشارتك باختصار.." rows="5" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-gold-solid text-white" required></textarea>
+                    <button type="submit" class="gold-btn w-full py-4 rounded-xl text-lg font-black">إرسال عبر واتساب</button>
+                </form>
             </div>
-            
-            <!-- نموذج الحجز (يظهر بعد اختيار الطريقة) -->
-            <div id="booking-form-container" class="hidden">
-                <div class="max-w-3xl mx-auto">
-                    <!-- نموذج الواتساب -->
-                    <div id="whatsapp-form" class="card-glass p-8 border-t-4 border-green-500 hidden">
-                        <h3 class="text-2xl font-bold gold-text mb-6">حجز عبر واتساب</h3>
-                        <form id="whatsappBookingForm" class="space-y-6">
-                            <input type="text" id="whatsappName" placeholder="الاسم بالكامل" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-green-500 text-white" required>
-                            <input type="tel" id="whatsappPhone" placeholder="رقم الواتساب" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-green-500 text-white" required>
-                            
-                            <div>
-                                <label class="block text-white/80 mb-2 text-sm font-bold">اختر تاريخ المقابلة</label>
-                                <input type="date" id="whatsappDate" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-green-500 text-white date-placeholder" required>
-                            </div>
-                            
-                            <div>
-                                <label class="block text-white/80 mb-2 text-sm font-bold">سبب المقابلة</label>
-                                <textarea id="whatsappReason" placeholder="اذكر سبب المقابلة (مثال: استشارة في قضية عقارية، مراجعة عقد، قضية تعويضات...)" rows="3" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-green-500 text-white" required></textarea>
-                            </div>
-                            
-                            <div class="info-note">
-                                <p class="text-white/90 text-sm flex items-center gap-2">
-                                    <i class="fas fa-info-circle gold-text"></i>
-                                    سوف يتم تأكيد الموعد برسالة على الواتساب خلال 24 ساعة
-                                </p>
-                            </div>
-                            
-                            <button type="submit" class="whatsapp-btn w-full py-4 rounded-xl text-lg font-black">
-                                <i class="fab fa-whatsapp ml-2"></i> إرسال طلب الحجز عبر واتساب
-                            </button>
-                        </form>
+
+            <!-- نموذج حجز الموعد -->
+            <div id="visit-form" class="card-glass p-10 border-t-4 border-gold-solid gold-border hidden">
+                <h3 class="text-2xl font-bold gold-text mb-6">حجز موعد في المكتب</h3>
+                <form id="visitFormAction" class="space-y-6">
+                    <input type="text" id="visitName" placeholder="الاسم بالكامل" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-gold-solid text-white" required>
+                    <input type="tel" id="visitPhone" placeholder="رقم الهاتف" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-gold-solid text-white" required>
+                    
+                    <div>
+                        <label class="block text-white/80 mb-2 text-sm font-bold">اختر تاريخ المقابلة</label>
+                        <input type="date" id="visitDate" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-gold-solid text-white date-placeholder" required>
+                        <p class="text-gray-400 text-xs mt-1">حدد التاريخ الذي ترغب في الحضور فيه</p>
                     </div>
                     
-                    <!-- النموذج الإلكتروني -->
-                    <div id="web-form" class="card-glass p-8 border-t-4 border-blue-500 hidden">
-                        <h3 class="text-2xl font-bold gold-text mb-6">نموذج الحجز الإلكتروني</h3>
-                        <form id="webBookingForm" class="space-y-6">
-                            <input type="text" id="webName" placeholder="الاسم بالكامل" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-blue-500 text-white" required>
-                            <input type="tel" id="webPhone" placeholder="رقم الهاتف" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-blue-500 text-white" required>
-                            <input type="email" id="webEmail" placeholder="البريد الإلكتروني" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-blue-500 text-white" required>
-                            
-                            <div>
-                                <label class="block text-white/80 mb-2 text-sm font-bold">اختر تاريخ المقابلة</label>
-                                <input type="date" id="webDate" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-blue-500 text-white date-placeholder" required>
-                            </div>
-                            
-                            <div>
-                                <label class="block text-white/80 mb-2 text-sm font-bold">اختر وقت المقابلة</label>
-                                <select id="webTime" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-blue-500 text-white" required>
-                                    <option value="">اختر الوقت</option>
-                                    <option value="09:00">9:00 صباحاً</option>
-                                    <option value="10:00">10:00 صباحاً</option>
-                                    <option value="11:00">11:00 صباحاً</option>
-                                    <option value="12:00">12:00 ظهراً</option>
-                                    <option value="13:00">1:00 ظهراً</option>
-                                    <option value="14:00">2:00 ظهراً</option>
-                                    <option value="15:00">3:00 عصراً</option>
-                                    <option value="16:00">4:00 عصراً</option>
-                                </select>
-                            </div>
-                            
-                            <div>
-                                <label class="block text-white/80 mb-2 text-sm font-bold">سبب المقابلة</label>
-                                <textarea id="webReason" placeholder="اذكر سبب المقابلة بالتفصيل..." rows="4" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-blue-500 text-white" required></textarea>
-                            </div>
-                            
-                            <div class="info-note">
-                                <p class="text-white/90 text-sm flex items-center gap-2">
-                                    <i class="fas fa-info-circle gold-text"></i>
-                                    سيتم إرسال رسالة تأكيد على البريد الإلكتروني خلال ساعة عمل
-                                </p>
-                            </div>
-                            
-                            <button type="submit" class="email-btn w-full py-4 rounded-xl text-lg font-black">
-                                <i class="fas fa-paper-plane ml-2"></i> إرسال طلب الحجز
-                            </button>
-                        </form>
+                    <div>
+                        <label class="block text-white/80 mb-2 text-sm font-bold">سبب المقابلة</label>
+                        <textarea id="visitReason" placeholder="اذكر سبب المقابلة (مثال: استشارة في قضية عقارية، مراجعة عقد، قضية تعويضات...)" rows="3" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-gold-solid text-white" required></textarea>
                     </div>
-                </div>
-            </div>
-            
-            <!-- ملاحظة هامة -->
-            <div class="mt-12 p-6 bg-gradient-to-r from-gold-solid/10 to-transparent rounded-2xl border border-gold-solid/20 max-w-3xl mx-auto">
-                <p class="text-white/90 text-center">
-                    <i class="fas fa-info-circle gold-text ml-2"></i>
-                    <strong>نوصي باستخدام واتساب للحصول على أسرع خدمة</strong> - فريقنا متواجد خلال ساعات العمل للرد الفوري
-                </p>
-            </div>
-            
-            <!-- زر العودة لاختيار الطريقة -->
-            <div class="text-center mt-8">
-                <button id="back-to-methods" class="text-white/70 hover:text-white transition" onclick="goBackToMethods()">
-                    <i class="fas fa-arrow-right ml-2"></i> العودة لاختيار طريقة الحجز
-                </button>
+                    
+                    <div class="info-note">
+                        <p class="text-white/90 text-sm flex items-center gap-2">
+                            <i class="fas fa-info-circle gold-text"></i>
+                            سوف يتم تأكيد الموعد برسالة على الواتساب خلال 24 ساعة
+                        </p>
+                    </div>
+                    
+                    <button type="submit" class="gold-btn w-full py-4 rounded-xl text-lg font-black">إرسال طلب الحجز عبر واتساب</button>
+                </form>
             </div>
         </div>
     </section>
 
     <!-- الفوتر -->
-    <footer class="pt-8 pb-12 border-t border-white/5 text-center">
+    <footer class="pt-8 pb-12 border-t border-white/5 text-center bg-black/50">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-4">
                 <img src="logo.png" alt="شعار مؤسسة محمود عبد الحميد" class="w-32 h-32 object-contain mx-auto mb-3 enhanced-image">
@@ -831,10 +665,6 @@
             <div id="modal-body" class="text-white/90 text-lg leading-relaxed prose prose-invert max-w-none text-right"></div>
         </div>
     </div>
-
-    <!-- مكتبات إضافية لتحسين الصور -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/17.8.3/lazyload.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
 
     <!-- السكريبت الرئيسي -->
     <script>
@@ -879,6 +709,9 @@
             
             // تحميل المقالات
             loadBlogPosts();
+            
+            // إعداد النماذج
+            setupForms();
         }
         
         function closeMenu() {
@@ -893,15 +726,6 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
-                        
-                        // تحميل الصور الخاملة
-                        const images = entry.target.querySelectorAll('img.lazy-image');
-                        images.forEach(img => {
-                            if (img.dataset.src) {
-                                img.src = img.dataset.src;
-                                img.classList.add('loaded');
-                            }
-                        });
                     }
                 });
             }, {
@@ -910,63 +734,29 @@
             
             // مراقبة العناصر
             document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
-            document.querySelectorAll('.lazy-image').forEach(el => observer.observe(el));
         }
         
-        // ==================== النظام الهجين للحجز ====================
-        let selectedBookingMethod = null;
-        
-        function selectBookingMethod(method) {
-            selectedBookingMethod = method;
+        // ==================== تبديل التبويبات ====================
+        function switchTab(type) {
+            const consultForm = document.getElementById('consult-form');
+            const visitForm = document.getElementById('visit-form');
+            const btnConsult = document.getElementById('btn-consult');
+            const btnVisit = document.getElementById('btn-visit');
             
-            // تحديث شريط التقدم
-            document.getElementById('progress-fill').style.width = '33%';
-            
-            // إخفاء طرق الحجز
-            document.getElementById('booking-methods').style.display = 'none';
-            
-            // إظهار نموذج الحجز
-            const formContainer = document.getElementById('booking-form-container');
-            formContainer.classList.remove('hidden');
-            
-            // إظهار النموذج المناسب
-            if (method === 'whatsapp') {
-                document.getElementById('whatsapp-form').classList.remove('hidden');
-                updateProgress(66);
-            } else if (method === 'form') {
-                document.getElementById('web-form').classList.remove('hidden');
-                updateProgress(66);
-            }
-            
-            // إظهار زر العودة
-            document.getElementById('back-to-methods').style.display = 'block';
-        }
-        
-        function goBackToMethods() {
-            // إعادة تعيين
-            selectedBookingMethod = null;
-            updateProgress(0);
-            
-            // إخفاء النماذج
-            document.getElementById('whatsapp-form').classList.add('hidden');
-            document.getElementById('web-form').classList.add('hidden');
-            document.getElementById('booking-form-container').classList.add('hidden');
-            
-            // إظهار طرق الحجز
-            document.getElementById('booking-methods').style.display = 'grid';
-            
-            // إخفاء زر العودة
-            document.getElementById('back-to-methods').style.display = 'none';
-        }
-        
-        function updateProgress(percent) {
-            const progressFill = document.getElementById('progress-fill');
-            if (progressFill) {
-                progressFill.style.width = percent + '%';
+            if (type === 'consult') {
+                consultForm.classList.remove('hidden');
+                visitForm.classList.add('hidden');
+                btnConsult.classList.add('active');
+                btnVisit.classList.remove('active');
+            } else {
+                visitForm.classList.remove('hidden');
+                consultForm.classList.add('hidden');
+                btnVisit.classList.add('active');
+                btnConsult.classList.remove('active');
             }
         }
         
-        // ==================== نماذج الحجز ====================
+        // ==================== إعداد النماذج ====================
         function setupDateInputs() {
             const today = new Date().toISOString().split('T')[0];
             const dateInputs = document.querySelectorAll('input[type="date"]');
@@ -977,89 +767,58 @@
             });
         }
         
-        // نموذج الواتساب
-        document.getElementById('whatsappBookingForm')?.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('whatsappName').value;
-            const phone = document.getElementById('whatsappPhone').value;
-            const date = document.getElementById('whatsappDate').value;
-            const reason = document.getElementById('whatsappReason').value;
-            
-            // تنسيق التاريخ
-            const dateObj = new Date(date);
-            const formattedDate = dateObj.toLocaleDateString('ar-EG', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-            
-            const whatsappMsg = `*طلب حجز موعد عبر الموقع*%0A%0A*الاسم:* ${name}%0A*الهاتف:* ${phone}%0A*التاريخ المقترح:* ${formattedDate}%0A%0A*سبب المقابلة:*%0A${reason}%0A%0A---%0A*المصدر:* موقع مؤسسة محمود عبد الحميد للمحاماة`;
-            
-            window.open(`https://wa.me/201101076000?text=${encodeURIComponent(whatsappMsg)}`, '_blank');
-            
-            // تحديث شريط التقدم
-            updateProgress(100);
-            
-            // إظهار رسالة نجاح
-            showSuccessMessage('whatsapp');
-            
-            // إعادة تعيين النموذج بعد تأخير
-            setTimeout(() => {
-                this.reset();
-                goBackToMethods();
-            }, 3000);
-        });
-        
-        // النموذج الإلكتروني
-        document.getElementById('webBookingForm')?.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const bookingData = {
-                name: document.getElementById('webName').value,
-                phone: document.getElementById('webPhone').value,
-                email: document.getElementById('webEmail').value,
-                date: document.getElementById('webDate').value,
-                time: document.getElementById('webTime').value,
-                reason: document.getElementById('webReason').value,
-                timestamp: new Date().toISOString(),
-                method: 'web_form'
-            };
-            
-            try {
-                // يمكنك إضافة كود لإرسال البيانات لخادمك هنا
-                // مثال: const response = await axios.post('/api/bookings', bookingData);
+        function setupForms() {
+            // نموذج الاستشارة
+            document.getElementById('consultFormAction')?.addEventListener('submit', function(e) {
+                e.preventDefault();
                 
-                // محاكاة الإرسال الناجح
-                updateProgress(100);
-                showSuccessMessage('email');
+                const name = document.getElementById('consultName').value;
+                const phone = document.getElementById('consultPhone').value;
+                const message = document.getElementById('consultMessage').value;
                 
-                // إرسال نسخة للواتساب أيضاً (اختياري)
-                const whatsappMsg = `*طلب حجز جديد عبر النموذج*%0A%0A*الاسم:* ${bookingData.name}%0A*البريد:* ${bookingData.email}%0A*التاريخ:* ${bookingData.date} ${bookingData.time}%0A%0A*السبب:*%0A${bookingData.reason}`;
+                const whatsappMsg = `*طلب استشارة قانونية*%0A%0A*الاسم:* ${name}%0A*الهاتف:* ${phone}%0A%0A*تفاصيل الاستشارة:*%0A${message}%0A%0A---%0A*المصدر:* موقع مؤسسة محمود عبد الحميد للمحاماة`;
+                
                 window.open(`https://wa.me/201101076000?text=${encodeURIComponent(whatsappMsg)}`, '_blank');
                 
-                // إعادة تعيين النموذج بعد تأخير
-                setTimeout(() => {
-                    this.reset();
-                    goBackToMethods();
-                }, 3000);
+                // إعادة تعيين النموذج
+                this.reset();
                 
-            } catch (error) {
-                console.error('Error submitting form:', error);
-                alert('حدث خطأ في إرسال النموذج. يرجى المحاولة مرة أخرى أو استخدام واتساب.');
-            }
-        });
-        
-        function showSuccessMessage(method) {
-            let message = '';
-            if (method === 'whatsapp') {
-                message = 'تم إرسال طلب الحجز بنجاح! سيتم الرد عليك عبر واتساب خلال 24 ساعة.';
-            } else {
-                message = 'تم إرسال طلب الحجز بنجاح! سيصلك تأكيد على البريد الإلكتروني خلال ساعة عمل.';
-            }
+                // رسالة نجاح
+                setTimeout(() => {
+                    alert('تم إرسال طلب الاستشارة بنجاح! سيتم الرد عليك خلال 24 ساعة.');
+                }, 500);
+            });
             
-            alert(message);
+            // نموذج حجز الموعد
+            document.getElementById('visitFormAction')?.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('visitName').value;
+                const phone = document.getElementById('visitPhone').value;
+                const date = document.getElementById('visitDate').value;
+                const reason = document.getElementById('visitReason').value;
+                
+                // تنسيق التاريخ
+                const dateObj = new Date(date);
+                const formattedDate = dateObj.toLocaleDateString('ar-EG', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                
+                const whatsappMsg = `*طلب حجز موعد مقابلة*%0A%0A*الاسم:* ${name}%0A*الهاتف:* ${phone}%0A*التاريخ المقترح:* ${formattedDate}%0A%0A*سبب المقابلة:*%0A${reason}%0A%0A---%0A*المصدر:* موقع مؤسسة محمود عبد الحميد للمحاماة`;
+                
+                window.open(`https://wa.me/201101076000?text=${encodeURIComponent(whatsappMsg)}`, '_blank');
+                
+                // إعادة تعيين النموذج
+                this.reset();
+                
+                // رسالة نجاح
+                setTimeout(() => {
+                    alert('تم إرسال طلب الحجز بنجاح! سيتم تأكيد الموعد عبر الواتساب خلال 24 ساعة.');
+                }, 500);
+            });
         }
         
         // ==================== تحميل المقالات ====================
@@ -1150,15 +909,16 @@
                 
                 posts.forEach((post, index) => {
                     const card = document.createElement('div');
-                    card.className = 'black-border-card card-glass rounded-2xl overflow-hidden cursor-pointer fade-in-up';
+                    card.className = 'black-border-card card-glass rounded-2xl overflow-hidden cursor-pointer fade-in-up gold-border';
                     card.style.transitionDelay = `${index * 0.1}s`;
                     
                     card.innerHTML = `
                         <div class="h-48 overflow-hidden">
                             <img src="${post.featuredImage}" 
                                  alt="${post.name}" 
-                                 class="w-full h-full object-cover transition-transform duration-500 hover:scale-110 lazy-image"
-                                 loading="lazy">
+                                 class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                                 loading="lazy"
+                                 onerror="this.src='images/default-featured.jpg'">
                         </div>
                         <div class="p-6">
                             <div class="flex justify-between items-start mb-3">
@@ -1175,20 +935,6 @@
                     card.onclick = () => showPostModal(post);
                     container.appendChild(card);
                 });
-                
-                // إعادة إعداد المراقبة للعناصر الجديدة
-                setTimeout(() => {
-                    document.querySelectorAll('.fade-in-up').forEach(el => {
-                        const observer = new IntersectionObserver((entries) => {
-                            entries.forEach(entry => {
-                                if (entry.isIntersecting) {
-                                    entry.target.classList.add('visible');
-                                }
-                            });
-                        });
-                        observer.observe(el);
-                    });
-                }, 100);
                 
             } catch (error) {
                 console.error('خطأ في تحميل المقالات:', error);
@@ -1248,49 +994,6 @@
             }
         });
         
-        // ==================== تحسينات الأداء ====================
-        window.addEventListener('load', function() {
-            // تحسين تحميل الصور
-            const images = document.querySelectorAll('img:not(.lazy-image)');
-            images.forEach(img => {
-                if (!img.complete) {
-                    img.classList.add('lazy-image');
-                    const observer = new IntersectionObserver((entries) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting) {
-                                const img = entry.target;
-                                img.classList.add('loaded');
-                                observer.unobserve(img);
-                            }
-                        });
-                    });
-                    observer.observe(img);
-                }
-            });
-            
-            // تحسين تجربة التمرير
-            if ('scrollBehavior' in document.documentElement.style) {
-                // المتصفح يدعم smooth scroll بشكل أصلي
-            } else {
-                // fallback للتصفح السلس
-                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                    anchor.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const targetId = this.getAttribute('href');
-                        if (targetId === '#') return;
-                        
-                        const targetElement = document.querySelector(targetId);
-                        if (targetElement) {
-                            window.scrollTo({
-                                top: targetElement.offsetTop - 100,
-                                behavior: 'smooth'
-                            });
-                        }
-                    });
-                });
-            }
-        });
-        
         // ==================== تحسينات للجوال ====================
         function checkMobile() {
             if (window.innerWidth <= 768) {
@@ -1303,6 +1006,26 @@
         
         window.addEventListener('resize', checkMobile);
         checkMobile();
+        
+        // ==================== تأثيرات ScrollReveal ====================
+        if (typeof ScrollReveal !== 'undefined') {
+            const sr = ScrollReveal({
+                duration: 1000,
+                distance: '30px',
+                easing: 'ease-out',
+                reset: false,
+                mobile: false
+            });
+            
+            sr.reveal('.section-title', {
+                origin: 'top',
+                distance: '50px'
+            });
+            
+            sr.reveal('.fade-in-up', {
+                interval: 100
+            });
+        }
     </script>
 </body>
 </html>
