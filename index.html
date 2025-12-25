@@ -388,44 +388,62 @@
 
     <script>
         const mobileMenu = document.getElementById('mobile-menu');
-        const menuToggle = document.getElementById('menu-toggle');
-        const menuClose = document.getElementById('menu-close');
+        // 1. التحكم في القائمة الجانبية للموبايل
+const mobileMenu = document.getElementById('mobile-menu');
+const menuToggle = document.getElementById('menu-toggle');
+const menuClose = document.getElementById('menu-close');
 
-        menuToggle.addEventListener('click', () => { mobileMenu.classList.add('active'); });
-        menuClose.addEventListener('click', () => { closeMenu(); });
-        function closeMenu() { mobileMenu.classList.remove('active'); }
+if(menuToggle) {
+    menuToggle.addEventListener('click', () => { 
+        mobileMenu.classList.add('active'); 
+    });
+}
 
-        function switchTab(type) {
-            const consultForm = document.getElementById('consult-form');
-            const visitForm = document.getElementById('visit-form');
-            const btnConsult = document.getElementById('btn-consult');
-            const btnVisit = document.getElementById('btn-visit');
+if(menuClose) {
+    menuClose.addEventListener('click', () => { 
+        closeMenu(); 
+    });
+}
 
-            if (type === 'consult') {
-                consultForm.classList.remove('hidden'); visitForm.classList.add('hidden');
-                btnConsult.classList.add('active'); btnVisit.classList.remove('active');
-            } else {
-                visitForm.classList.remove('hidden'); consultForm.classList.add('hidden');
-                btnVisit.classList.add('active'); btnConsult.classList.remove('active');
-            }
-        }
+function closeMenu() { 
+    mobileMenu.classList.remove('active'); 
+}
 
-// دالة تحميل كل المقالات تلقائيًا من مجلد blog/ بدون إضافة أسماء يدويًا
+// 2. التنقل بين تبويبات الحجز (استشارة / مقابلة)
+function switchTab(type) {
+    const consultForm = document.getElementById('consult-form');
+    const visitForm = document.getElementById('visit-form');
+    const btnConsult = document.getElementById('btn-consult');
+    const btnVisit = document.getElementById('btn-visit');
+
+    if (type === 'consult') {
+        consultForm.classList.remove('hidden'); 
+        visitForm.classList.add('hidden');
+        btnConsult.classList.add('active'); 
+        btnVisit.classList.remove('active');
+    } else {
+        visitForm.classList.remove('hidden'); 
+        consultForm.classList.add('hidden');
+        btnVisit.classList.add('active'); 
+        btnConsult.classList.remove('active');
+    }
+}
+
+// 3. وظائف المدونة وجلب المقالات من GitHub
 async function loadBlogPosts() {
     const container = document.getElementById('blog-posts');
-    container.innerHTML = '<p class="text-center text-white/60 col-span-full">جاري تحميل المقالات...</p>';
+    if(!container) return;
+    
+    container.innerHTML = '<p class="text-center text-white/60 col-span-full">جاري تحميل المقالات القانونية...</p>';
 
     try {
-        // بيانات الريبو (غيرها لو اسم الريبو أو الفرع مختلف)
-        const repo = 'malegal/ma-legal'; // تأكد إن ده اسم الريبو الصحيح
-        const branch = 'main'; // لو الفرع master، غيره لـ 'master'
+        const repo = 'malegal/ma-legal'; 
+        const branch = 'main'; 
 
-        // جلب قائمة الملفات من GitHub API
-        const response = await fetch(`https://api.github.com/repos/\( {repo}/git/trees/ \){branch}?recursive=1`);
-        if (!response.ok) throw new Error('Failed to fetch repo tree');
+        const response = await fetch(`https://api.github.com/repos/${repo}/git/trees/${branch}?recursive=1`);
+        if (!response.ok) throw new Error('Failed to fetch files');
+        
         const data = await response.json();
-
-        // تصفية ملفات .md داخل مجلد blog/
         const mdFiles = data.tree
             .filter(item => item.path.startsWith('blog/') && item.path.endsWith('.md'))
             .map(item => item.path.replace('blog/', ''));
@@ -433,50 +451,63 @@ async function loadBlogPosts() {
         const posts = [];
 
         for (const file of mdFiles) {
-            const fileResponse = await fetch(`https://raw.githubusercontent.com/\( {repo}/ \){branch}/blog/${file}`);
+            const fileResponse = await fetch(`https://raw.githubusercontent.com/${repo}/${branch}/blog/${file}`);
             if (!fileResponse.ok) continue;
 
             const text = await fileResponse.text();
+            // استخدام مكتبة matter لتحليل بيانات المقال
             const { data: frontmatter, content } = matter(text);
 
             posts.push({
                 name: frontmatter.title || file.replace('.md', ''),
-                date: frontmatter.date || 'غير محدد',
-                description: frontmatter.description || '',
+                date: frontmatter.date || 'تاريخ غير محدد',
+                description: frontmatter.description || 'اضغط لقراءة المزيد عن هذا الموضوع القانوني..',
                 content: marked.parse(content),
-                featuredImage: frontmatter.featured_image || 'images/default-featured.jpg'
+                featuredImage: frontmatter.featured_image || 'https://raw.githubusercontent.com/malegal/ma-legal/main/images/law-office-hero.jpg'
             });
         }
 
-        // ترتيب من الأحدث للأقدم
         posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-
         container.innerHTML = '';
 
         posts.forEach(post => {
             const card = document.createElement('div');
-            card.className = 'bg-white/5 rounded-xl overflow-hidden shadow-lg cursor-pointer hover:shadow-gold-glow/30 transition';
+            card.className = 'bg-white/5 rounded-xl overflow-hidden shadow-lg cursor-pointer hover:shadow-gold-glow/30 transition p-6 text-right border border-white/5';
             card.innerHTML = `
-                <div class="p-6">
-                    <h3 class="text-xl font-bold gold-text mb-2">${post.name}</h3>
-                    <p class="text-white/60 text-sm mb-4">${post.date}</p>
-                    <p class="text-white/80">${post.description}</p>
-                </div>
+                <h3 class="text-xl font-bold gold-text mb-2">${post.name}</h3>
+                <p class="text-white/60 text-sm mb-4">${post.date}</p>
+                <p class="text-white/80 line-clamp-3 text-sm">${post.description}</p>
             `;
             card.onclick = () => showPostModal(post);
             container.appendChild(card);
         });
 
         if (posts.length === 0) {
-            container.innerHTML = '<p class="text-center text-white/60 col-span-full">لا توجد مقالات حاليًا</p>';
+            container.innerHTML = '<p class="text-center text-white/60 col-span-full">لا توجد مقالات منشورة حالياً.</p>';
         }
     } catch (error) {
-        container.innerHTML = '<p class="text-center text-red-400">حدث خطأ أثناء تحميل المقالات، تأكد من وجود مجلد blog/</p>';
+        container.innerHTML = '<p class="text-center text-red-400 col-span-full">عذراً، حدث خطأ أثناء الاتصال بالخادم.</p>';
         console.error(error);
     }
 }
 
-        loadBlogPosts();
+// 4. عرض المقال وإغلاقه
+function showPostModal(post) {
+    document.getElementById('modal-title').innerText = post.name;
+    document.getElementById('modal-body').innerHTML = post.content;
+    document.getElementById('modal-image').src = post.featuredImage;
+    document.getElementById('post-modal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden'; // منع السكرول خلف المودال
+}
+
+function closeModal() {
+    document.getElementById('post-modal').classList.add('hidden');
+    document.body.style.overflow = 'auto';
+}
+
+// تشغيل جلب المقالات بمجرد تحميل الصفحة
+document.addEventListener('DOMContentLoaded', loadBlogPosts);
+;
         // دالة تحميل كل المقالات تلقائيًا من مجلد blog/
 async function loadBlogPosts() {
     const container = document.getElementById('blog-posts');
