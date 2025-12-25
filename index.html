@@ -412,114 +412,30 @@
             }
         }
 
-async function loadBlogPosts() {
-    const container = document.getElementById('blog-posts');
-    container.innerHTML = '<p class="text-center text-white/60 col-span-full">جاري تحميل المقالات...</p>';
-    try {
-        const response = await fetch('https://api.github.com/repos/malegal/ma-legal/contents/blog');
-        const files = await response.json();
-        if (!response.ok || !Array.isArray(files)) {
-            container.innerHTML = '<p class="text-center text-white/60 col-span-full">لا توجد مقالات منشورة بعد.</p>';
-            return;
-        }
-        container.innerHTML = '';
-        const mdFiles = files.filter(f => f.name.endsWith('.md'));
-        if (mdFiles.length === 0) {
-            container.innerHTML = '<p class="text-center text-white/60 col-span-full">لا توجد مقالات منشورة بعد.</p>';
-            return;
-        }
-        for (const file of mdFiles) {
-            const postRes = await fetch(file.download_url);
-            const text = await postRes.text();
-
-            const titleMatch = text.match(/title:\s*(.*)/);
-            const descMatch = text.match(/description:\s*(.*)/);
-            const imgMatch = text.match(/image:\s*(.*)/);
-            const bodyStart = text.indexOf('---', text.indexOf('---') + 3) + 3;
-            const body = text.substring(bodyStart).trim();
-
-            const title = titleMatch ? titleMatch[1].replace(/['"]/g, '').trim() : 'بدون عنوان';
-            const desc = descMatch ? descMatch[1].replace(/['"]/g, '').trim() : 'لا يوجد وصف';
-            const img = imgMatch ? imgMatch[1].replace(/['"]/g, '').trim() : 'https://images.unsplash.com/photo-1453945619913-79ec89a82c51?auto=format&fit=crop&q=80&w=800';
-
-            const card = document.createElement('div');
-            card.className = 'card-glass overflow-hidden group text-right cursor-pointer';
-            card.onclick = () => openModal(title, img, body);
-
-            card.innerHTML = `
-                <div class="h-48 overflow-hidden">
-                    <img src="\( {img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt=" \){title}">
-                </div>
-                <div class="p-6">
-                    <span class="text-xs gold-text font-bold">مقالة قانونية</span>
-                    <h4 class="text-xl font-bold text-white mt-3 mb-4">${title}</h4>
-                    <p class="text-white/70 text-sm mb-6 line-clamp-3">${desc}</p>
-                    <span class="text-gold-solid font-bold text-sm hover:underline">اقرأ المزيد ←</span>
-                </div>
-            `;
-
-            container.appendChild(card);
-        }
-    } catch (e) {
-        console.error(e);
-        container.innerHTML = '<p class="text-center text-white/60 col-span-full">خطأ في تحميل المقالات</p>';
-    }
-}
-
-        function openModal(title, img, body) {
-            document.getElementById('modal-title').innerHTML = title;
-            document.getElementById('modal-image').src = img;
-            document.getElementById('modal-body').innerHTML = marked.parse(body);
-            document.getElementById('post-modal').classList.remove('hidden');
-        }
-
-        function closeModal() {
-            document.getElementById('post-modal').classList.add('hidden');
-        }
-
-        document.getElementById('consultFormAction').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('consultName').value;
-            const phone = document.getElementById('consultPhone').value;
-            const msg = document.getElementById('consultMessage').value;
-            const text = `*طلب استشارة قانونية*\nالاسم: \( {name}\nالهاتف: \){phone}\nالتفاصيل: ${msg}`;
-            window.open(`https://wa.me/201101076000?text=${encodeURIComponent(text)}`, '_blank');
-        });
-
-        document.getElementById('visitFormAction').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('visitName').value;
-            const phone = document.getElementById('visitPhone').value;
-            const date = document.getElementById('visitDate').value;
-            const text = `*طلب حجز موعد مقابلة*\nالاسم: \( {name}\nالهاتف: \){phone}\nالتاريخ المقترح: ${date}`;
-            window.open(`https://wa.me/201101076000?text=${encodeURIComponent(text)}`, '_blank');
-        });
-
-        loadBlogPosts();
-        // دالة تحميل كل المقالات تلقائيًا من مجلد blog/
+// دالة تحميل كل المقالات تلقائيًا من مجلد blog/ بدون إضافة أسماء يدويًا
 async function loadBlogPosts() {
     const container = document.getElementById('blog-posts');
     container.innerHTML = '<p class="text-center text-white/60 col-span-full">جاري تحميل المقالات...</p>';
 
     try {
         // بيانات الريبو (غيرها لو اسم الريبو أو الفرع مختلف)
-        const repo = 'malegal/ma-legal'; // اسم الريبو بتاعك
-        const branch = 'main'; // أو master لو مختلف
-        const dir = 'blog'; // اسم المجلد
+        const repo = 'malegal/ma-legal'; // تأكد إن ده اسم الريبو الصحيح
+        const branch = 'main'; // لو الفرع master، غيره لـ 'master'
 
         // جلب قائمة الملفات من GitHub API
         const response = await fetch(`https://api.github.com/repos/\( {repo}/git/trees/ \){branch}?recursive=1`);
+        if (!response.ok) throw new Error('Failed to fetch repo tree');
         const data = await response.json();
 
         // تصفية ملفات .md داخل مجلد blog/
         const mdFiles = data.tree
-            .filter(item => item.path.startsWith(dir + '/') && item.path.endsWith('.md'))
-            .map(item => item.path.replace(dir + '/', ''));
+            .filter(item => item.path.startsWith('blog/') && item.path.endsWith('.md'))
+            .map(item => item.path.replace('blog/', ''));
 
         const posts = [];
 
         for (const file of mdFiles) {
-            const fileResponse = await fetch(`https://raw.githubusercontent.com/\( {repo}/ \){branch}/\( {dir}/ \){file}`);
+            const fileResponse = await fetch(`https://raw.githubusercontent.com/\( {repo}/ \){branch}/blog/${file}`);
             if (!fileResponse.ok) continue;
 
             const text = await fileResponse.text();
@@ -557,7 +473,80 @@ async function loadBlogPosts() {
             container.innerHTML = '<p class="text-center text-white/60 col-span-full">لا توجد مقالات حاليًا</p>';
         }
     } catch (error) {
-        container.innerHTML = '<p class="text-center text-red-400">حدث خطأ أثناء تحميل المقالات</p>';
+        container.innerHTML = '<p class="text-center text-red-400">حدث خطأ أثناء تحميل المقالات، تأكد من وجود مجلد blog/</p>';
+        console.error(error);
+    }
+}
+
+        loadBlogPosts();
+        // دالة تحميل كل المقالات تلقائيًا من مجلد blog/
+async function loadBlogPosts() {
+    const container = document.getElementById('blog-posts');
+    container.innerHTML = '<p class="text-center text-white/60 col-span-full">جاري تحميل المقالات...</p>';
+
+    // دالة تحميل كل المقالات تلقائيًا من مجلد blog/ بدون إضافة أسماء يدويًا
+async function loadBlogPosts() {
+    const container = document.getElementById('blog-posts');
+    container.innerHTML = '<p class="text-center text-white/60 col-span-full">جاري تحميل المقالات...</p>';
+
+    try {
+        // بيانات الريبو (غيرها لو اسم الريبو أو الفرع مختلف)
+        const repo = 'malegal/ma-legal'; // اسم الريبو بتاعك
+        const branch = 'main'; // غير لـ 'master' لو الفرع مختلف
+
+        // جلب قائمة الملفات من GitHub API
+        const response = await fetch(`https://api.github.com/repos/\( {repo}/git/trees/ \){branch}?recursive=1`);
+        if (!response.ok) throw new Error('فشل جلب قائمة الملفات');
+
+        const data = await response.json();
+
+        // تصفية ملفات .md داخل مجلد blog/
+        const mdFiles = data.tree
+            .filter(item => item.path.startsWith('blog/') && item.path.endsWith('.md'))
+            .map(item => item.path.replace('blog/', ''));
+
+        const posts = [];
+
+        for (const file of mdFiles) {
+            const fileResponse = await fetch(`https://raw.githubusercontent.com/\( {repo}/ \){branch}/blog/${file}`);
+            if (!fileResponse.ok) continue;
+
+            const text = await fileResponse.text();
+            const { data: frontmatter, content } = matter(text);
+
+            posts.push({
+                name: frontmatter.title || file.replace('.md', ''),
+                date: frontmatter.date || 'غير محدد',
+                description: frontmatter.description || '',
+                content: marked.parse(content),
+                featuredImage: frontmatter.featured_image || 'images/default-featured.jpg'
+            });
+        }
+
+        // ترتيب من الأحدث للأقدم
+        posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        container.innerHTML = '';
+
+        posts.forEach(post => {
+            const card = document.createElement('div');
+            card.className = 'bg-white/5 rounded-xl overflow-hidden shadow-lg cursor-pointer hover:shadow-gold-glow/30 transition';
+            card.innerHTML = `
+                <div class="p-6">
+                    <h3 class="text-xl font-bold gold-text mb-2">${post.name}</h3>
+                    <p class="text-white/60 text-sm mb-4">${post.date}</p>
+                    <p class="text-white/80">${post.description}</p>
+                </div>
+            `;
+            card.onclick = () => showPostModal(post);
+            container.appendChild(card);
+        });
+
+        if (posts.length === 0) {
+            container.innerHTML = '<p class="text-center text-white/60 col-span-full">لا توجد مقالات حاليًا</p>';
+        }
+    } catch (error) {
+        container.innerHTML = '<p class="text-center text-red-400">حدث خطأ أثناء تحميل المقالات، تأكد من وجود مجلد blog/</p>';
         console.error(error);
     }
 }
