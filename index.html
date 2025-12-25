@@ -38,6 +38,9 @@
         section { scroll-margin-top: var(--header-height); }
         .hidden { display: none; }
     </style>
+    <!-- مكتبات لتحميل وتحويل المقالات من markdown (مرة واحدة فقط) -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gray-matter@4.0.3/dist/gray-matter.min.js"></script>
 </head>
 <body>
 
@@ -493,7 +496,71 @@ async function loadBlogPosts() {
         });
 
         loadBlogPosts();
-        ScrollReveal().reveal('#about, #specialties, #vision, #blog, #booking', { origin: 'bottom', distance: '50px', duration: 1000, delay: 200, easing: 'cubic-bezier(0.5, 0, 0, 1)', interval: 200 });
+        // دالة تحميل كل المقالات تلقائيًا من مجلد blog/
+async function loadBlogPosts() {
+    const container = document.getElementById('blog-posts');
+    container.innerHTML = '<p class="text-center text-white/60 col-span-full">جاري تحميل المقالات...</p>';
+
+    try {
+        // بيانات الريبو (غيرها لو اسم الريبو أو الفرع مختلف)
+        const repo = 'malegal/ma-legal'; // اسم الريبو بتاعك
+        const branch = 'main'; // أو master لو مختلف
+        const dir = 'blog'; // اسم المجلد
+
+        // جلب قائمة الملفات من GitHub API
+        const response = await fetch(`https://api.github.com/repos/\( {repo}/git/trees/ \){branch}?recursive=1`);
+        const data = await response.json();
+
+        // تصفية ملفات .md داخل مجلد blog/
+        const mdFiles = data.tree
+            .filter(item => item.path.startsWith(dir + '/') && item.path.endsWith('.md'))
+            .map(item => item.path.replace(dir + '/', ''));
+
+        const posts = [];
+
+        for (const file of mdFiles) {
+            const fileResponse = await fetch(`https://raw.githubusercontent.com/\( {repo}/ \){branch}/\( {dir}/ \){file}`);
+            if (!fileResponse.ok) continue;
+
+            const text = await fileResponse.text();
+            const { data: frontmatter, content } = matter(text);
+
+            posts.push({
+                name: frontmatter.title || file.replace('.md', ''),
+                date: frontmatter.date || 'غير محدد',
+                description: frontmatter.description || '',
+                content: marked.parse(content),
+                featuredImage: frontmatter.featured_image || 'images/default-featured.jpg'
+            });
+        }
+
+        // ترتيب من الأحدث للأقدم
+        posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        container.innerHTML = '';
+
+        posts.forEach(post => {
+            const card = document.createElement('div');
+            card.className = 'bg-white/5 rounded-xl overflow-hidden shadow-lg cursor-pointer hover:shadow-gold-glow/30 transition';
+            card.innerHTML = `
+                <div class="p-6">
+                    <h3 class="text-xl font-bold gold-text mb-2">${post.name}</h3>
+                    <p class="text-white/60 text-sm mb-4">${post.date}</p>
+                    <p class="text-white/80">${post.description}</p>
+                </div>
+            `;
+            card.onclick = () => showPostModal(post);
+            container.appendChild(card);
+        });
+
+        if (posts.length === 0) {
+            container.innerHTML = '<p class="text-center text-white/60 col-span-full">لا توجد مقالات حاليًا</p>';
+        }
+    } catch (error) {
+        container.innerHTML = '<p class="text-center text-red-400">حدث خطأ أثناء تحميل المقالات</p>';
+        console.error(error);
+    }
+}
     </script>
 </body>
 </html>
