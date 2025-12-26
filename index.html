@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gray-matter@4.0.3/dist/gray-matter.min.js"></script>
+    <script src="https://unpkg.com/gray-matter@4.0.3/dist/gray-matter.min.js"></script>
     <style>
         :root {
             --primary-dark: #020617;
@@ -155,6 +155,39 @@
             margin-top: 10px; 
         }
         
+        /* شريط تنقل ذهبي جديد */
+        .header-glass {
+            background: rgba(0, 0, 0, 0.95) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--gold-solid);
+            box-shadow: 0 5px 30px rgba(191, 149, 63, 0.3);
+        }
+        
+        /* روابط التنقل الذهبية */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--gold-solid) !important;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold-gradient);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
         /* تأثيرات خاصة للصور الخلفية */
         .bg-section {
             background-attachment: fixed;
@@ -204,6 +237,10 @@
             .gold-btn {
                 padding: 12px 20px !important;
                 font-size: 14px !important;
+            }
+            
+            .header-glass {
+                border-bottom: 1px solid var(--gold-solid);
             }
         }
         
@@ -270,13 +307,6 @@
             -webkit-mask-composite: destination-out;
             mask-composite: exclude;
             pointer-events: none;
-        }
-        
-        /* تحسين الهيدر */
-        .header-glass {
-            background: rgba(0, 0, 0, 0.9) !important;
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(191, 149, 63, 0.2);
         }
         
         /* تباعد محسّن */
@@ -350,6 +380,31 @@
             border-radius: 0.5rem;
             transition: all 0.3s ease;
         }
+        
+        /* تعديلات لشريط التنقل الذهبي */
+        .gold-nav {
+            background: rgba(15, 23, 42, 0.95);
+            border-bottom: 2px solid var(--gold-solid);
+        }
+        
+        .gold-nav a:hover {
+            color: var(--gold-solid) !important;
+        }
+        
+        /* تأثيرات للروابط الذهبية */
+        .gold-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .gold-hover:hover {
+            color: var(--gold-solid) !important;
+            transform: translateY(-2px);
+        }
+        
+        /* تحسينات للنصوص الذهبية */
+        .gold-shadow {
+            text-shadow: 0 0 10px rgba(191, 149, 63, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -359,8 +414,8 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- الهيدر -->
-    <header class="fixed w-full z-[100] header-glass">
+    <!-- الهيدر مع شريط التنقل الذهبي -->
+    <header class="fixed w-full z-[100] header-glass gold-nav">
         <nav class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center gap-4">
                 <img src="logo.png" alt="شعار مؤسسة محمود عبد الحميد" class="w-28 h-28 object-contain">
@@ -370,10 +425,10 @@
                 </div>
             </div>
             <div class="hidden lg:flex items-center gap-8 font-bold text-sm">
-                <a href="#about" class="hover:gold-text transition">عن المؤسسة</a>
-                <a href="#specialties" class="hover:gold-text transition">تخصصاتنا</a>
-                <a href="#vision" class="hover:gold-text transition">الرؤية والأهداف</a>
-                <a href="#blog" class="hover:gold-text transition">المدونة</a>
+                <a href="#about" class="nav-link text-white hover:text-gold-solid transition gold-hover">عن المؤسسة</a>
+                <a href="#specialties" class="nav-link text-white hover:text-gold-solid transition gold-hover">تخصصاتنا</a>
+                <a href="#vision" class="nav-link text-white hover:text-gold-solid transition gold-hover">الرؤية والأهداف</a>
+                <a href="#blog" class="nav-link text-white hover:text-gold-solid transition gold-hover">المدونة</a>
                 <a href="#booking" class="gold-btn px-6 py-2.5 rounded-lg text-xs">طلب استشارة فورية</a>
             </div>
             <button id="menu-toggle" class="lg:hidden text-2xl gold-text">
@@ -388,17 +443,17 @@
             <i class="fas fa-times"></i>
         </button>
         <div class="flex flex-col gap-8 mt-20 text-2xl font-bold">
-            <a href="#about" onclick="closeMenu()" class="gold-text">عن المؤسسة</a>
-            <a href="#specialties" onclick="closeMenu()" class="gold-text">تخصصاتنا القانونية</a>
-            <a href="#vision" onclick="closeMenu()" class="gold-text">الرؤية والأهداف</a>
-            <a href="#blog" onclick="closeMenu()" class="gold-text">المدونة</a>
-            <a href="#booking" onclick="closeMenu()" class="gold-text">حجز استشارة</a>
+            <a href="#about" onclick="closeMenu()" class="gold-text gold-hover">عن المؤسسة</a>
+            <a href="#specialties" onclick="closeMenu()" class="gold-text gold-hover">تخصصاتنا القانونية</a>
+            <a href="#vision" onclick="closeMenu()" class="gold-text gold-hover">الرؤية والأهداف</a>
+            <a href="#blog" onclick="closeMenu()" class="gold-text gold-hover">المدونة</a>
+            <a href="#booking" onclick="closeMenu()" class="gold-text gold-hover">حجز استشارة</a>
         </div>
     </div>
 
     <!-- قسم الهيرو -->
     <section id="hero" class="min-h-screen flex flex-col items-center justify-center text-center px-6 pt-20 relative overflow-hidden bg-section"
-         style="background-image: url('https://raw.githubusercontent.com/malegal/ma-legal/main/images/law-office-hero.jpg');">
+         style="background-image: url('images/hero-bg.jpg');">
         <div class="section-overlay"></div>
         
         <div class="section-content relative z-10 max-w-5xl mx-auto">
@@ -408,7 +463,7 @@
             
             <h1 class="mb-8 md:mb-10">
                 <span class="block text-5xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[7rem] 
-                            font-black serif-font gold-text leading-tight tracking-wide">
+                            font-black serif-font gold-text leading-tight tracking-wide gold-shadow">
                     محمود عبد الحميد
                 </span>
             </h1>
@@ -452,16 +507,16 @@
 
     <!-- قسم عن المؤسسة -->
     <section id="about" class="section-spacing relative bg-section"
-         style="background-image: url('images/about-bg.jpg'); background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=2070&auto=format&fit=crop');">
+         style="background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/about-bg.jpg');">
         <div class="section-content max-w-7xl mx-auto px-6">
             <div class="rounded-3xl overflow-hidden shadow-2xl shadow-gold-glow/40 mb-16">
-                <img src="https://raw.githubusercontent.com/malegal/ma-legal/main/images/law-office-hero.jpg"
+                <img src="images/hero-bg.jpg"
                      class="w-full h-[320px] sm:h-[380px] md:h-[450px] lg:h-[500px] object-cover enhanced-image"
                      alt="مكتبة قانونية فاخرة">
             </div>
 
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-black serif-font gold-text mb-6 section-title">عن المؤسسة</h2>
+                <h2 class="text-4xl md:text-5xl font-black serif-font gold-text mb-6 section-title gold-shadow">عن المؤسسة</h2>
                 <div class="w-32 h-1 bg-gradient-to-r from-transparent via-gold-solid to-transparent mx-auto"></div>
             </div>
 
@@ -475,14 +530,14 @@
 
             <div class="text-center space-y-6 fade-in-up">
                 <div class="inline-block">
-                    <img src="https://raw.githubusercontent.com/malegal/ma-legal/main/me.jpg"
+                    <img src="me.jpg"
                          class="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[400px] lg:h-[400px] border-2 border-gold-solid rounded-2xl shadow-2xl shadow-gold-glow/50 object-cover mx-auto enhanced-image"
                          alt="الأستاذ محمود عبد الحميد"
                          loading="lazy">
                 </div>
                 
                 <div class="space-y-3">
-                    <h3 class="text-3xl sm:text-3.5xl md:text-4xl font-black gold-text serif-font">
+                    <h3 class="text-3xl sm:text-3.5xl md:text-4xl font-black gold-text serif-font gold-shadow">
                         الأستاذ محمود عبد الحميد
                     </h3>
                     <p class="text-xl sm:text-2xl text-white font-bold">
@@ -498,15 +553,15 @@
 
     <!-- قسم التخصصات -->
     <section id="specialties" class="section-spacing relative bg-section"
-         style="background-image: url('https://raw.githubusercontent.com/malegal/ma-legal/main/images/مطرقة.jpg'); background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('https://raw.githubusercontent.com/malegal/ma-legal/main/images/مطرقة.jpg');">
+         style="background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('images/specialties-bg.jpg');">
         
         <div class="section-content max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-black serif-font gold-text mb-6 section-title">تخصصاتنا القانونية</h2>
+                <h2 class="text-4xl md:text-5xl font-black serif-font gold-text mb-6 section-title gold-shadow">تخصصاتنا القانونية</h2>
                 <div class="w-32 h-1 bg-gradient-to-r from-transparent via-gold-solid to-transparent mx-auto"></div>
             </div>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="black-border-card card-glass p-8 group rounded-2xl fade-in-up gold-border">
                     <i class="fas fa-balance-scale text-4xl gold-text mb-6"></i>
                     <h3 class="text-2xl font-bold gold-text mb-4">القانون المدني و التعويضات</h3>
@@ -539,19 +594,19 @@
         </div>
     </section>
 
-    <!-- قسم الرؤية والأهداف - مساحة مخفضة -->
+    <!-- قسم الرؤية والأهداف -->
     <section id="vision" class="py-16 relative bg-section"
-         style="background-image: url('images/vision-bg.jpg'); background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=2069&auto=format&fit=crop');">
+         style="background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/vision-bg.jpg');">
         
         <div class="section-content max-w-7xl mx-auto px-6">
             <div class="text-center mb-12">
-                <h2 class="text-4xl md:text-5xl font-black serif-font gold-text mb-6 section-title">الرؤية والأهداف</h2>
+                <h2 class="text-4xl md:text-5xl font-black serif-font gold-text mb-6 section-title gold-shadow">الرؤية والأهداف</h2>
                 <div class="w-32 h-1 bg-gradient-to-r from-transparent via-gold-solid to-transparent mx-auto"></div>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="black-border-card card-glass p-8 rounded-2xl fade-in-up gold-border">
-                    <h3 class="text-3xl font-bold gold-text mb-6">رؤيتنا</h3>
+                    <h3 class="text-3xl font-bold gold-text mb-6 gold-shadow">رؤيتنا</h3>
                     <p class="text-white/90 text-lg leading-relaxed mb-6">نسعى لأن نكون مؤسسة قانونية مرجعية يُعتمد عليها في تقديم الحلول القانونية المتكاملة، وأن نرسّخ حضورًا مهنيًا قويًا يجمع بين عمق الخبرة القانونية والرؤية الحديثة لممارسة المحاماة.</p>
                     <ul class="space-y-3">
                         <li class="flex items-start">
@@ -570,7 +625,7 @@
                 </div>
                 
                 <div class="black-border-card card-glass p-8 rounded-2xl fade-in-up gold-border">
-                    <h3 class="text-3xl font-bold gold-text mb-6">أهدافنا</h3>
+                    <h3 class="text-3xl font-bold gold-text mb-6 gold-shadow">أهدافنا</h3>
                     <ul class="space-y-4 text-white/90 text-lg achievement-list">
                         <li>تقديم خدمات قانونية دقيقة ومبنية على دراسة متأنية لكل حالة على حدة.</li>
                         <li>حماية حقوق موكلينا والدفاع عنها بأقصى ما يسمح به القانون وبأعلى درجات الاحتراف.</li>
@@ -583,20 +638,20 @@
         </div>
     </section>
 
-    <!-- قسم الإنجازات - محسّن -->
+    <!-- قسم الإنجازات -->
     <section id="achievements" class="section-spacing relative bg-section"
-         style="background-image: url('images/مطرقة.jpg'); background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1589391886085-8b6b0ac72a1a?q=80&w=2070&auto=format&fit=crop');">
+         style="background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/achievements-bg.jpg');">
         
         <div class="section-content max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-black serif-font gold-text mb-6 section-title">إنجازاتنا</h2>
+                <h2 class="text-4xl md:text-5xl font-black serif-font gold-text mb-6 section-title gold-shadow">إنجازاتنا</h2>
                 <div class="w-32 h-1 bg-gradient-to-r from-transparent via-gold-solid to-transparent mx-auto"></div>
                 <p class="text-xl text-white/80 mt-4 max-w-3xl mx-auto">إنجازات متميزة على مدار سنوات من الخبرة والعمل الجاد</p>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="black-border-card card-glass p-8 rounded-2xl fade-in-up gold-border">
-                    <h3 class="text-2xl font-bold gold-text mb-6">إنجازات قضائية</h3>
+                    <h3 class="text-2xl font-bold gold-text mb-6 gold-shadow">إنجازات قضائية</h3>
                     <ul class="space-y-4 text-white/90 text-lg achievement-list">
                         <li>تحقيق أحكام قضائية مبتكرة في قضايا معقدة أمام محكمة النقض</li>
                         <li>الترافع الناجح في قضايا دستورية أمام المحكمة الدستورية العليا</li>
@@ -608,7 +663,7 @@
                 </div>
                 
                 <div class="black-border-card card-glass p-8 rounded-2xl fade-in-up gold-border">
-                    <h3 class="text-2xl font-bold gold-text mb-6">إنجازات مؤسسية</h3>
+                    <h3 class="text-2xl font-bold gold-text mb-6 gold-shadow">إنجازات مؤسسية</h3>
                     <ul class="space-y-4 text-white/90 text-lg achievement-list">
                         <li>تأسيس شراكات استراتيجية مع مؤسسات قانونية مرموقة</li>
                         <li>بناء فريق عمل قانوني متخصص ذو كفاءة عالية</li>
@@ -622,7 +677,7 @@
             
             <div class="mt-12 fade-in-up">
                 <div class="black-border-card card-glass p-8 rounded-2xl gold-border">
-                    <h3 class="text-2xl font-bold gold-text mb-6 text-center">قيمنا في العمل</h3>
+                    <h3 class="text-2xl font-bold gold-text mb-6 text-center gold-shadow">قيمنا في العمل</h3>
                     <div class="grid md:grid-cols-3 gap-6 text-center">
                         <div class="space-y-3">
                             <div class="w-16 h-16 rounded-full bg-gradient-to-br from-gold-solid to-transparent flex items-center justify-center mx-auto">
@@ -653,11 +708,11 @@
 
     <!-- قسم آراء العملاء -->
     <section id="testimonials" class="section-spacing relative bg-section"
-         style="background-image: url('images/testimonials-bg.jpg'); background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop');">
+         style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/testimonials-bg.jpg');">
         
         <div class="section-content max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-black serif-font gold-text mb-6 section-title">آراء عملائنا</h2>
+                <h2 class="text-4xl md:text-5xl font-black serif-font gold-text mb-6 section-title gold-shadow">آراء عملائنا</h2>
                 <div class="w-32 h-1 bg-gradient-to-r from-transparent via-gold-solid to-transparent mx-auto"></div>
                 <p class="text-xl text-white/80 mt-4">ثقة عملائنا هي شهادتنا الحقيقية</p>
             </div>
@@ -719,13 +774,13 @@
         </div>
     </section>
 
-    <!-- قسم المدونة - تم التعديل -->
+    <!-- قسم المدونة -->
     <section id="blog" class="section-spacing relative bg-section"
-         style="background-image: linear-gradient(rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.9)), url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=2069&auto=format&fit=crop');">
+         style="background-image: linear-gradient(rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.9)), url('images/blog-bg.jpg');">
         
         <div class="section-content relative z-10 max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-black serif-font gold-text mb-6 section-title">المدونة القانونية</h2>
+                <h2 class="text-4xl md:text-5xl font-black serif-font gold-text mb-6 section-title gold-shadow">المدونة القانونية</h2>
                 <div class="w-32 h-1 bg-gradient-to-r from-transparent via-gold-solid to-transparent mx-auto"></div>
                 <p class="text-xl text-white/80 mt-4 max-w-3xl mx-auto">أحدث المقالات والأبحاث القانونية لتطوير معرفتك القانونية</p>
             </div>
@@ -756,7 +811,7 @@
 
             <!-- نموذج الاستشارة -->
             <div id="consult-form" class="card-glass p-10 border-t-4 border-gold-solid gold-border">
-                <h3 class="text-2xl font-bold gold-text mb-6">نموذج الاستشارة السريعة</h3>
+                <h3 class="text-2xl font-bold gold-text mb-6 gold-shadow">نموذج الاستشارة السريعة</h3>
                 <form id="consultFormAction" class="space-y-6">
                     <input type="text" id="consultName" placeholder="الاسم بالكامل" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-gold-solid text-white" required>
                     <input type="tel" id="consultPhone" placeholder="رقم الواتساب" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-gold-solid text-white" required>
@@ -767,7 +822,7 @@
 
             <!-- نموذج حجز الموعد -->
             <div id="visit-form" class="card-glass p-10 border-t-4 border-gold-solid gold-border hidden">
-                <h3 class="text-2xl font-bold gold-text mb-6">حجز موعد في المكتب</h3>
+                <h3 class="text-2xl font-bold gold-text mb-6 gold-shadow">حجز موعد في المكتب</h3>
                 <form id="visitFormAction" class="space-y-6">
                     <input type="text" id="visitName" placeholder="الاسم بالكامل" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-gold-solid text-white" required>
                     <input type="tel" id="visitPhone" placeholder="رقم الهاتف" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-gold-solid text-white" required>
@@ -802,18 +857,18 @@
             <div class="text-center mb-4">
                 <img src="logo.png" alt="شعار مؤسسة محمود عبد الحميد" class="w-32 h-32 object-contain mx-auto mb-3 enhanced-image">
                 
-                <h2 class="text-2xl md:text-3xl font-black gold-text serif-font">مؤسسة</h2>
-                <h2 class="text-2xl md:text-3xl font-black gold-text serif-font">محمود عبد الحميد</h2>
+                <h2 class="text-2xl md:text-3xl font-black gold-text serif-font gold-shadow">مؤسسة</h2>
+                <h2 class="text-2xl md:text-3xl font-black gold-text serif-font gold-shadow">محمود عبد الحميد</h2>
                 <p class="text-base md:text-lg text-white/90 font-bold mt-1">المحامي بالنقض والدستورية العليا</p>
                 
                 <p class="text-sm text-gray-400 mt-2"><i class="fas fa-map-marker-alt gold-text ml-1"></i> أسوان - أمام مجمع المحاكم</p>
             </div>
 
             <div class="flex justify-center gap-8 text-white/60 mb-8 text-2xl">
-                <a href="https://wa.me/201101076000" target="_blank" class="hover:gold-text"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://www.facebook.com/malegal" target="_blank" class="hover:gold-text"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.linkedin.com/in/mahmoud-abdel-hamid-0a4664374" target="_blank" class="hover:gold-text"><i class="fab fa-linkedin-in"></i></a>
-                <a href="mailto:ma.legal.eg@outlook.com" class="hover:gold-text"><i class="fas fa-envelope"></i></a>
+                <a href="https://wa.me/201101076000" target="_blank" class="hover:gold-text gold-hover"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.facebook.com/malegal" target="_blank" class="hover:gold-text gold-hover"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.linkedin.com/in/mahmoud-abdel-hamid-0a4664374" target="_blank" class="hover:gold-text gold-hover"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:ma.legal.eg@outlook.com" class="hover:gold-text gold-hover"><i class="fas fa-envelope"></i></a>
             </div>
             <p class="text-white/40 text-xs uppercase tracking-widest">جميع الحقوق محفوظة © ٢٠٢٥</p>
         </div>
@@ -826,12 +881,12 @@
                 <i class="fas fa-times"></i>
             </button>
             <img id="modal-image" class="w-full h-64 object-cover rounded-2xl mb-8 enhanced-image" src="" alt="">
-            <h2 id="modal-title" class="text-4xl font-black gold-text mb-6 text-right"></h2>
+            <h2 id="modal-title" class="text-4xl font-black gold-text mb-6 text-right gold-shadow"></h2>
             <div id="modal-content" class="text-white/90 text-lg leading-relaxed prose prose-invert max-w-none text-right"></div>
         </div>
     </div>
 
-    <!-- السكريبت الرئيسي مع إصلاح المدونة -->
+    <!-- السكريبت الرئيسي مع نظام المدونة الجديد -->
     <script>
         // ==================== تهيئة عامة ====================
         document.addEventListener('DOMContentLoaded', function() {
@@ -986,7 +1041,7 @@
             });
         }
         
-        // ==================== تحميل المقالات - الإصدار المعدل ====================
+        // ==================== نظام المدونة الجديد ====================
         async function loadBlogPosts() {
             const container = document.getElementById('blog-posts');
             const noPostsMessage = document.getElementById('no-posts-message');
@@ -1002,142 +1057,30 @@
             `;
             
             try {
-                // مقالات تجريبية مع صور Unsplash عالية الجودة
-                const samplePosts = [
-                    {
-                        title: "الحماية القانونية للعلامات التجارية في مصر",
-                        date: "2024-01-15",
-                        description: "دليل شامل لحماية العلامات التجارية وفقاً لأحدث التشريعات المصرية والدولية",
-                        image: "https://images.unsplash.com/photo-1586339949916-3e9457bef6d3?q=80&w=2070&auto=format&fit=crop",
-                        content: `
-                            <h2 class="text-2xl font-bold mb-4">الحماية القانونية للعلامات التجارية في مصر</h2>
-                            <p class="mb-4">تعد العلامات التجارية من أهم الأصول غير الملموسة للشركات، وتتطلب حماية قانونية قوية. في مصر، ينظم قانون الملكية الفكرية رقم 82 لسنة 2002 حماية العلامات التجارية.</p>
-                            <h3 class="text-xl font-bold mb-3 text-gold-solid">خطوات تسجيل العلامة التجارية:</h3>
-                            <ol class="list-decimal pr-4 space-y-2 mb-4">
-                                <li>بحث أولي للتأكد من عدم وجود علامة مماثلة</li>
-                                <li>تقديم طلب التسجيل لمصلحة التسجيل التجاري</li>
-                                <li>فحص الطلب والبيانات المقدمة</li>
-                                <li>نشر الإعلان في الجريدة الرسمية</li>
-                                <li>صدور شهادة التسجيل</li>
-                            </ol>
-                            <p class="p-3 bg-white/5 rounded-lg"><strong>مدة الحماية:</strong> 10 سنوات قابلة للتجديد.</p>
-                        `
-                    },
-                    {
-                        title: "التعويضات في القضايا المدنية",
-                        date: "2024-01-10",
-                        description: "كيفية حساب والتعويضات المدنية والنفقات القضائية وفقاً للقانون المصري",
-                        image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=2070&auto=format&fit=crop",
-                        content: `
-                            <h2 class="text-2xl font-bold mb-4">التعويضات في القضايا المدنية</h2>
-                            <p class="mb-4">ينص القانون المدني المصري على أحكام التعويض في المواد من 163 إلى 202. هناك نوعان رئيسيان من التعويض:</p>
-                            <h3 class="text-xl font-bold mb-3 text-gold-solid">أنواع التعويض:</h3>
-                            <ul class="list-disc pr-4 space-y-2 mb-4">
-                                <li><strong>التعويض العيني:</strong> إعادة الحال إلى ما كان عليه</li>
-                                <li><strong>التعويض المالي:</strong> تعويض نقدي عن الضرر</li>
-                            </ul>
-                            <h3 class="text-xl font-bold mb-3 text-gold-solid">عناصر التعويض:</h3>
-                            <ul class="list-disc pr-4 space-y-2">
-                                <li>الضرر المباشر</li>
-                                <li>الخطأ</li>
-                                <li>العلاقة السببية بين الخطأ والضرر</li>
-                            </ul>
-                        `
-                    },
-                    {
-                        title: "تأسيس الشركات في القانون المصري الجديد",
-                        date: "2024-01-05",
-                        description: "أحدث التعديلات القانونية لتأسيس الشركات وفقاً لقانون الاستثمار الجديد",
-                        image: "https://images.unsplash.com/photo-1664575602276-acd073f104c1?q=80&w=2070&auto=format&fit=crop",
-                        content: `
-                            <h2 class="text-2xl font-bold mb-4">تأسيس الشركات في القانون المصري الجديد</h2>
-                            <p class="mb-4">أصدرت مصر قانون الاستثمار الجديد رقم 72 لسنة 2017 الذي سهل إجراءات تأسيس الشركات.</p>
-                            <h3 class="text-xl font-bold mb-3 text-gold-solid">مميزات القانون الجديد:</h3>
-                            <ul class="list-disc pr-4 space-y-2 mb-4">
-                                <li>إجراءات سريعة عبر النافذة الواحدة</li>
-                                <li>تخفيض رأس المال المطلوب</li>
-                                <li>إعفاءات ضريبية للمشروعات الناشئة</li>
-                                <li>تسهيلات للاستثمار الأجنبي</li>
-                            </ul>
-                            <h3 class="text-xl font-bold mb-3 text-gold-solid">أنواع الشركات المسموح بها:</h3>
-                            <ul class="list-disc pr-4 space-y-2">
-                                <li>شركة التضامن</li>
-                                <li>شركة التوصية البسيطة</li>
-                                <li>شركة المساهمة</li>
-                                <li>شركة ذات مسؤولية محدودة</li>
-                            </ul>
-                        `
-                    }
-                ];
+                // تحميل قائمة المقالات من blog-config.json
+                const response = await fetch('blog-config.json');
+                const articles = await response.json();
                 
-                let posts = samplePosts; // استخدام المقالات التجريبية مباشرة
-                
-                // عرض المقالات
-                if (posts.length === 0) {
+                if (!articles || articles.length === 0) {
                     container.classList.add('hidden');
                     noPostsMessage.classList.remove('hidden');
                     return;
                 }
                 
+                // عرض المقالات
                 container.innerHTML = '';
-                
-                posts.forEach((post, index) => {
-                    const card = document.createElement('div');
-                    card.className = 'blog-post-card black-border-card card-glass rounded-2xl overflow-hidden fade-in-up gold-border';
-                    card.style.transitionDelay = `${index * 0.1}s`;
-                    
-                    // تنسيق التاريخ
-                    let formattedDate = post.date;
-                    try {
-                        const dateObj = new Date(post.date);
-                        formattedDate = dateObj.toLocaleDateString('ar-EG', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                        });
-                    } catch (e) {
-                        formattedDate = post.date;
-                    }
-                    
-                    card.innerHTML = `
-                        <div class="blog-post-image-container">
-                            <img src="${post.image}" 
-                                 alt="${post.title}" 
-                                 class="blog-post-image w-full object-cover transition-transform duration-500 hover:scale-105"
-                                 loading="lazy"
-                                 onerror="this.src='https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=2070&auto=format&fit=crop'">
-                        </div>
-                        <div class="blog-post-content p-6">
-                            <div class="flex justify-between items-start mb-3">
-                                <h3 class="text-xl font-bold gold-text flex-1">${post.title}</h3>
-                                <span class="bg-gold-solid/20 text-gold-solid text-xs px-3 py-1 rounded-full whitespace-nowrap">${formattedDate}</span>
-                            </div>
-                            <p class="blog-post-excerpt text-white/80 text-sm leading-relaxed mb-4">${post.description}</p>
-                            <div class="mt-auto pt-4 border-t border-white/10">
-                                <button onclick="showBlogPost(${index})" class="read-more-btn text-gold-solid hover:text-gold-600 font-bold text-sm">
-                                    قراءة المزيد <i class="fas fa-arrow-left mr-1"></i>
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    
+                articles.forEach((article, index) => {
+                    const card = createArticleCard(article, index);
                     container.appendChild(card);
                 });
                 
-                // تخزين المقالات للاستخدام لاحقاً
-                window.blogPosts = posts;
+                // حفظ المقالات للعرض في المودال
+                window.blogPosts = articles;
                 
-                // إعادة إعداد المراقبة للعناصر الجديدة
+                // تفعيل تأثيرات الدخول
                 setTimeout(() => {
                     document.querySelectorAll('.fade-in-up').forEach(el => {
-                        const observer = new IntersectionObserver((entries) => {
-                            entries.forEach(entry => {
-                                if (entry.isIntersecting) {
-                                    entry.target.classList.add('visible');
-                                }
-                            });
-                        });
-                        observer.observe(el);
+                        el.classList.add('visible');
                     });
                 }, 100);
                 
@@ -1145,107 +1088,140 @@
                 console.error('خطأ في تحميل المقالات:', error);
                 container.innerHTML = `
                     <div class="col-span-3 text-center py-12">
-                        <p class="text-red-400 mb-4">حدث خطأ أثناء تحميل المقالات</p>
-                        <p class="text-white/60 text-sm">تم تحميل مقالات تجريبية للتوضيح</p>
+                        <p class="text-red-400 mb-4">حدث خطأ في تحميل المقالات</p>
+                        <p class="text-white/60 text-sm">يرجى المحاولة مرة أخرى لاحقاً</p>
                     </div>
                 `;
-                
-                // عرض المقالات التجريبية في حالة الخطأ
-                setTimeout(() => {
-                    loadSamplePosts();
-                }, 1000);
             }
         }
         
-        // تحميل المقالات التجريبية
-        function loadSamplePosts() {
-            const container = document.getElementById('blog-posts');
-            if (!container) return;
+        function createArticleCard(article, index) {
+            const card = document.createElement('div');
+            card.className = 'blog-post-card black-border-card card-glass rounded-2xl overflow-hidden fade-in-up gold-border';
+            card.style.transitionDelay = `${index * 0.1}s`;
             
-            const samplePosts = [
-                {
-                    title: "مقدمة في القانون المدني المصري",
-                    date: "2024-01-20",
-                    description: "تعرف على أساسيات القانون المدني المصري وتطبيقاته العملية",
-                    image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=2070",
-                    content: "محتوى المقال الأول..."
-                },
-                {
-                    title: "حماية المستهلك في التشريع المصري",
-                    date: "2024-01-18",
-                    description: "دليل كامل لحقوق المستهلك وآليات الحماية القانونية",
-                    image: "https://images.unsplash.com/photo-1586339949916-3e9457bef6d3?q=80&w=2070",
-                    content: "محتوى المقال الثاني..."
-                },
-                {
-                    title: "التحكيم التجاري الدولي",
-                    date: "2024-01-15",
-                    description: "آليات التحكيم التجاري الدولي وفقاً للقوانين المصرية والدولية",
-                    image: "https://images.unsplash.com/photo-1664575602276-acd073f104c1?q=80&w=2070",
-                    content: "محتوى المقال الثالث..."
+            // تنسيق التاريخ
+            let formattedDate = 'تاريخ غير معروف';
+            try {
+                if (article.date) {
+                    const dateObj = new Date(article.date);
+                    formattedDate = dateObj.toLocaleDateString('ar-EG', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
                 }
-            ];
+            } catch (e) {
+                console.warn('خطأ في تنسيق التاريخ:', e);
+            }
             
-            container.innerHTML = '';
-            window.blogPosts = samplePosts;
-            
-            samplePosts.forEach((post, index) => {
-                const card = document.createElement('div');
-                card.className = 'blog-post-card black-border-card card-glass rounded-2xl overflow-hidden fade-in-up gold-border';
-                
-                card.innerHTML = `
-                    <img src="${post.image}" 
-                         alt="${post.title}" 
-                         class="blog-post-image w-full object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold gold-text mb-2">${post.title}</h3>
-                        <p class="text-white/60 text-sm mb-3">${post.date}</p>
-                        <p class="text-white/80 text-sm mb-4">${post.description}</p>
-                        <button onclick="showBlogPost(${index})" class="text-gold-solid hover:text-gold-600 font-bold text-sm">
+            card.innerHTML = `
+                <div class="blog-post-image-container">
+                    <img src="${article.image || '/blog/images/welcome.jpg'}" 
+                         alt="${article.title || 'مقال قانوني'}" 
+                         class="blog-post-image w-full object-cover transition-transform duration-500 hover:scale-105"
+                         loading="lazy"
+                         onerror="this.src='/blog/images/welcome.jpg'">
+                </div>
+                <div class="blog-post-content p-6">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-xl font-bold gold-text flex-1">${article.title || 'مقال جديد'}</h3>
+                        <span class="bg-gold-solid/20 text-gold-solid text-xs px-3 py-1 rounded-full whitespace-nowrap">${formattedDate}</span>
+                    </div>
+                    <p class="blog-post-excerpt text-white/80 text-sm leading-relaxed mb-4">${article.description || 'مقال قانوني متخصص'}</p>
+                    <div class="mt-auto pt-4 border-t border-white/10">
+                        <button onclick="loadAndShowArticle('${article.id || article.file || ''}')" class="read-more-btn text-gold-solid hover:text-gold-600 font-bold text-sm">
                             قراءة المزيد <i class="fas fa-arrow-left mr-1"></i>
                         </button>
                     </div>
-                `;
-                
-                container.appendChild(card);
-            });
+                </div>
+            `;
+            
+            return card;
         }
         
-        // ==================== عرض مقال المدونة ====================
-        function showBlogPost(index) {
-            if (!window.blogPosts || !window.blogPosts[index]) {
-                alert('المقال غير متوفر حالياً');
-                return;
+        // ==================== تحميل وعرض المقال ====================
+        async function loadAndShowArticle(articleId) {
+            try {
+                // إذا كان articleId يحتوي على مسار الملف
+                const filePath = articleId.includes('.md') ? articleId : `blog/${articleId}.md`;
+                
+                // تحميل المقال من ملف .md
+                const response = await fetch(filePath);
+                const content = await response.text();
+                
+                // تحليل المحتوى باستخدام gray-matter
+                let parsed;
+                if (typeof window.grayMatter !== 'undefined') {
+                    parsed = window.grayMatter(content);
+                } else {
+                    // حل بديل إذا لم تكن المكتبة متوفرة
+                    parsed = parseMarkdownManually(content);
+                }
+                
+                // استخدام marked لتحويل Markdown إلى HTML
+                let htmlContent;
+                if (typeof window.marked !== 'undefined') {
+                    htmlContent = window.marked.parse(parsed.content);
+                } else {
+                    htmlContent = `<pre>${parsed.content}</pre>`;
+                }
+                
+                // عرض في المودال
+                showArticleModal(parsed.data, htmlContent);
+                
+            } catch (error) {
+                console.error('خطأ في تحميل المقال:', error);
+                alert('عفواً، حدث خطأ في تحميل المقال. يرجى التأكد من وجود الملف.');
+            }
+        }
+        
+        function parseMarkdownManually(content) {
+            // تحليل يدوي لـ frontmatter إذا لم تكن gray-matter متوفرة
+            const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
+            
+            if (frontmatterMatch) {
+                const frontmatter = frontmatterMatch[1];
+                const data = {};
+                const contentWithoutFrontmatter = content.slice(frontmatterMatch[0].length);
+                
+                // تحليل بسيط لـ frontmatter
+                const titleMatch = frontmatter.match(/title:\s*["'](.+?)["']/);
+                const imageMatch = frontmatter.match(/image:\s*["'](.+?)["']/);
+                
+                if (titleMatch) data.title = titleMatch[1];
+                if (imageMatch) data.image = imageMatch[1];
+                
+                return {
+                    data: data,
+                    content: contentWithoutFrontmatter.trim()
+                };
             }
             
-            const post = window.blogPosts[index];
+            return {
+                data: {},
+                content: content
+            };
+        }
+        
+        function showArticleModal(metadata, content) {
             const modal = document.getElementById('post-modal');
             const modalImage = document.getElementById('modal-image');
             const modalTitle = document.getElementById('modal-title');
             const modalContent = document.getElementById('modal-content');
             
-            modalImage.src = post.image;
-            modalImage.onerror = function() {
-                this.src = 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=2070';
-            };
+            // تعيين الصورة
+            if (metadata.image) {
+                modalImage.src = metadata.image;
+                modalImage.onerror = function() {
+                    this.src = '/blog/images/welcome.jpg';
+                };
+            } else {
+                modalImage.src = '/blog/images/welcome.jpg';
+            }
             
-            modalTitle.textContent = post.title;
-            modalContent.innerHTML = post.content || `
-                <div class="p-4 bg-white/5 rounded-xl mb-6">
-                    <p class="text-gold-solid font-bold mb-2">تاريخ النشر: ${post.date}</p>
-                    <p class="text-white/80">${post.description}</p>
-                </div>
-                <p class="mb-4">هذا مقال تجريبي يوضح كيفية ظهور المقالات في المدونة.</p>
-                <div class="bg-gold-solid/10 p-4 rounded-xl border border-gold-solid/20">
-                    <h3 class="text-xl font-bold gold-text mb-3">لإضافة مقالات حقيقية:</h3>
-                    <ol class="list-decimal pr-4 space-y-2">
-                        <li>أنشئ مجلد <code class="bg-black/30 px-2 py-1 rounded">blog</code> في ريبو GitHub الخاص بك</li>
-                        <li>أضف ملفات <code class="bg-black/30 px-2 py-1 rounded">.md</code> داخل المجلد</li>
-                        <li>اكتب مقالاتك بصيغة Markdown مع البيانات الضرورية</li>
-                        <li>المقالات ستظهر تلقائياً هنا</li>
-                    </ol>
-                </div>
-            `;
+            modalTitle.textContent = metadata.title || 'مقال قانوني';
+            modalContent.innerHTML = content;
             
             modal.classList.remove('hidden');
             modal.style.display = 'flex';
